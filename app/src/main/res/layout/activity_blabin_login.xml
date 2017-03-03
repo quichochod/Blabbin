@@ -41,7 +41,7 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_person"
                     android:paddingLeft="5dp"
                     />
@@ -49,15 +49,16 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:hint="@string/prompt_email"
-                    android:textColorHint="#000000"
+                    android:textColorHint="#95989a"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:textAlignment="gravity"
-                    android:textSize="12sp"
+                    android:textSize="20dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textColor="#FF000000"
+                    android:textStyle="bold" />
                 </LinearLayout >
 
             </android.support.design.widget.TextInputLayout>
@@ -70,31 +71,34 @@
                     android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_lock"
                     android:paddingLeft="5dp"
-                    />
+                    android:paddingBottom="5dp" />
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="311dp"
-                    android:layout_height="35dp"
-                    android:hint="@string/prompt_password"
-                    android:textColorHint="#000000"
+                    android:layout_height="40dp"
+                    android:hint="Password"
+                    android:textColorHint="#95989a"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:textAlignment="gravity"
-                    android:textSize="12sp"
+                    android:textSize="20dp"
                     android:paddingLeft="10dp"
-                    android:singleLine="true" />
+                    android:textColor="#FF000000"
+                    android:singleLine="true"
+                    android:textStyle="bold" />
                 </LinearLayout>
             </android.support.design.widget.TextInputLayout>
 
             <RelativeLayout
                 android:layout_width="326dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp">
 
                 <Button
                     android:id="@+id/email_sign_in_button"
@@ -110,6 +114,23 @@
                     android:elevation="0dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/textView3"
+                    android:text="Don't have an account? Sign up! "
+                    android:textColor="#95989a"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="30dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
         </LinearLayout>
