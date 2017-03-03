@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.database.DatabaseUtils;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +34,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cse.usf.edu.android.db.BlabbinDBManager;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -63,11 +67,19 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
     private View mProgressView;
     private View mLoginFormView;
 
+
+    //ADRI's Code *********************************
+    BlabbinDBManager myBlabbinDBManager;
+    long newUser;
+    EditText pw;
+    EditText email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabin_login);
 
+<<<<<<< HEAD
         // Font path
         String fontHobo = "fonts/Hobo Std Medium.ttf";
         String fontHelvetica = "fonts/HelveticaNeue.ttf";
@@ -87,6 +99,8 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
         txtemail.setTypeface(tfHelvetica);
         txtpassword.setTypeface(tfHelvetica);
         txtsignup.setTypeface(tfHelvetica);
+        myBlabbinDBManager = new BlabbinDBManager(this);
+        myBlabbinDBManager.open();
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -113,8 +127,13 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
             }
         });
 
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
+
+
     }
 
     private void populateAutoComplete() {
@@ -206,14 +225,23 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
             cancel = true;
         }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            if (cancel) {
+                // There was an error; don't attempt login and focus the first
+                // form field with an error.
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+
+
+            newUser = myBlabbinDBManager.createUser(email, password);
+
+            Cursor info = myBlabbinDBManager.getUser(email);
+
+            Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(info));
+
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -221,7 +249,8 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        //return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
