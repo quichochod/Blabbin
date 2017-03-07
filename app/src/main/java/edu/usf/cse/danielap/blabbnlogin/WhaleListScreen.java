@@ -14,4 +14,7 @@ public class WhaleListScreen extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whale_list_screen);
     }
+
+//    @Override
+//    public void onClick()
 }
