@@ -135,7 +135,10 @@ public class BlabinLoginActivity extends AppCompatActivity {
         String userName = mUserNameView.getText().toString();
         String password = mPasswordView.getText().toString();
         Cursor userInfo = myBlabbinDBManager.validateCredentials(userName, password);
-        if(userInfo != null){
+
+        Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
+
+        if(userInfo.getCount() != 0){
             Intent i = new Intent(BlabinLoginActivity.this, BlabbinWhaleActivity.class);
             startActivity(i);
             finish();
