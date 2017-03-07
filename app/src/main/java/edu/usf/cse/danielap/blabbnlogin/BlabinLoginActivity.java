@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.database.DatabaseUtils;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -78,13 +79,33 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabin_login);
 
+
+        // Font path
+        String fontHobo = "fonts/Hobo Std Medium.ttf";
+        String fontHelvetica = "fonts/HelveticaNeue.ttf";
+
+        // text view label
+        TextView txtLoginbut = (TextView) findViewById(R.id.email_sign_in_button);
+        TextView txtemail = (TextView) findViewById(R.id.email);
+        TextView txtpassword = (TextView) findViewById(R.id.password);
+        TextView txtsignup = (TextView) findViewById(R.id.textView3);
+
+        // Loading Font Face
+        Typeface tfHobo = Typeface.createFromAsset(getAssets(), fontHobo);
+        Typeface tfHelvetica = Typeface.createFromAsset(getAssets(), fontHelvetica);
+
+        // Applying font
+        txtLoginbut.setTypeface(tfHobo);
+        txtemail.setTypeface(tfHelvetica);
+        txtpassword.setTypeface(tfHelvetica);
+        txtsignup.setTypeface(tfHelvetica);
         myBlabbinDBManager = new BlabbinDBManager(this);
         myBlabbinDBManager.open();
-
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
