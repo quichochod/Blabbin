@@ -127,7 +127,7 @@ public class BlabinLoginActivity extends AppCompatActivity {
 
         //Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
 
-        Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
+        //Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
 
     }
 
