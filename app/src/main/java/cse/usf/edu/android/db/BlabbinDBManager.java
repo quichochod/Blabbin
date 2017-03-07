@@ -68,6 +68,16 @@ public class BlabbinDBManager {
         return mCursor;
     }
 
+    public Cursor validateCredentials(String userName, String pw){
+        String whereClause = USER_KEY_USERNAME + "=" + "'" + userName + "'" + " AND " +
+                             USER_KEY_PASSOWRD + "=" + "'" + pw + "'";
+        Cursor mCursor = db.query(USER_DB_TABLE, new String[] {USER_KEY_USERNAME, USER_KEY_PASSOWRD}, whereClause, null, null, null, null, null);
+        if(mCursor != null){
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
 
 
 
