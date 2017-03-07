@@ -79,7 +79,7 @@ public class BlabinLoginActivity extends AppCompatActivity implements LoaderCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabin_login);
 
-<<<<<<< HEAD
+
         // Font path
         String fontHobo = "fonts/Hobo Std Medium.ttf";
         String fontHelvetica = "fonts/HelveticaNeue.ttf";

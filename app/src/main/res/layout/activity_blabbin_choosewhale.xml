@@ -10,7 +10,6 @@
     android:layout_width="match_parent"
     android:layout_height="75dp">
     <TextView
-        android:text="@string/textview"
         android:layout_width="288dp"
         android:layout_height="80dp"
         android:id="@+id/chooseWhaleTitle"
@@ -23,7 +22,6 @@
         android:layout_height="177dp">
 
         <TextView
-            android:text="TextView"
             android:layout_width="275dp"
             android:layout_height="175dp"
             android:id="@+id/chooseWhale"
@@ -34,161 +32,184 @@
             tools:ignore="HardcodedText" />
     </RelativeLayout>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.80">
+        android:layout_height="390dp"
+        android:background="@drawable/whaleall">
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale1"
-            android:background="@drawable/whale02"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp" />
+            android:background="#00cc2222"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="20dp"/>
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale2"
-            android:background="@drawable/whale03"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_alignParentTop="true"
+            android:background="#00cc2222"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:layout_alignBaseline="@+id/Whale1"
+            android:layout_alignBottom="@+id/Whale1"
             android:layout_toRightOf="@+id/Whale1"
             android:layout_toEndOf="@+id/Whale1" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale3"
-            android:background="@drawable/whale09"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/Whale2"
-            android:layout_toEndOf="@+id/Whale2" />
-
-        <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale6"
-            android:background="@drawable/whale16"
-            android:layout_below="@+id/Whale2"
-            android:layout_alignLeft="@+id/Whale2"
-            android:layout_alignStart="@+id/Whale2" />
-
-        <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale7"
-            android:background="@drawable/whale21"
-            android:layout_below="@+id/Whale3"
-            android:layout_alignLeft="@+id/Whale3"
-            android:layout_alignStart="@+id/Whale3" />
-
-        <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale5"
-            android:background="@drawable/whale14"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/Whale3"
-            android:layout_toEndOf="@+id/Whale3"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp" />
-
-        <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale8"
-            android:background="@drawable/whale23"
+            android:background="#00cc2222"
+            android:layout_marginTop="54dp"
             android:layout_below="@+id/Whale1"
             android:layout_alignLeft="@+id/Whale1"
             android:layout_alignStart="@+id/Whale1" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale6"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale5"
+            android:layout_alignBottom="@+id/Whale5"
+            android:layout_alignLeft="@+id/Whale2"
+            android:layout_alignStart="@+id/Whale2" />
+
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale9"
-            android:background="@drawable/whale25"
+            android:background="#00cc2222"
+            android:layout_marginTop="55dp"
             android:layout_below="@+id/Whale5"
             android:layout_alignLeft="@+id/Whale5"
             android:layout_alignStart="@+id/Whale5" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale10"
-            android:background="@drawable/whale27"
-            android:layout_below="@+id/Whale8"
-            android:layout_alignLeft="@+id/Whale8"
-            android:layout_alignStart="@+id/Whale8" />
-
-        <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale11"
-            android:background="@drawable/whale30"
-            android:layout_below="@+id/Whale6"
+            android:background="#01cc2222"
+            android:layout_alignBaseline="@+id/Whale9"
+            android:layout_alignBottom="@+id/Whale9"
             android:layout_alignLeft="@+id/Whale6"
             android:layout_alignStart="@+id/Whale6" />
 
-        <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale12"
-            android:background="@drawable/whale34"
-            android:layout_below="@+id/Whale7"
-            android:layout_alignLeft="@+id/Whale7"
-            android:layout_alignStart="@+id/Whale7" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale13"
-            android:background="@drawable/whale37"
-            android:layout_below="@+id/Whale9"
+            android:background="#00cc2222"
+            android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/Whale9"
-            android:layout_alignStart="@+id/Whale9" />
+            android:layout_alignStart="@+id/Whale9"
+            android:layout_marginBottom="36dp" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale14"
-            android:background="@drawable/whale41"
-            android:layout_below="@+id/Whale10"
-            android:layout_alignLeft="@+id/Whale10"
-            android:layout_alignStart="@+id/Whale10" />
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale7"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale5"
+            android:layout_alignBottom="@+id/Whale5"
+            android:layout_alignRight="@+id/Whale3"
+            android:layout_alignEnd="@+id/Whale3"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:id="@+id/Whale15"
-            android:background="@drawable/whale43"
-            android:layout_below="@+id/Whale11"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale13"
+            android:layout_alignBottom="@+id/Whale13"
             android:layout_alignLeft="@+id/Whale11"
             android:layout_alignStart="@+id/Whale11" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale16"
-            android:background="@drawable/whale45"
-            android:layout_below="@+id/Whale13"
-            android:layout_alignLeft="@+id/Whale13"
-            android:layout_alignStart="@+id/Whale13" />
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale14"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale13"
+            android:layout_alignBottom="@+id/Whale13"
+            android:layout_alignLeft="@+id/Whale10"
+            android:layout_alignStart="@+id/Whale10" />
 
         <Button
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/Whale17"
-            android:background="@drawable/whale47"
-            android:layout_below="@+id/Whale12"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale16"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale13"
+            android:layout_alignBottom="@+id/Whale13"
             android:layout_alignLeft="@+id/Whale12"
-            android:layout_alignStart="@+id/Whale12" />
+            android:layout_alignStart="@+id/Whale12"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale8"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale7"
+            android:layout_alignBottom="@+id/Whale7"
+            android:layout_alignRight="@+id/Whale4"
+            android:layout_alignEnd="@+id/Whale4"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale12"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale9"
+            android:layout_alignBottom="@+id/Whale9"
+            android:layout_alignLeft="@+id/Whale8"
+            android:layout_alignStart="@+id/Whale8" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale3"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale1"
+            android:layout_alignBottom="@+id/Whale1"
+            android:layout_toLeftOf="@+id/Whale8"
+            android:layout_toStartOf="@+id/Whale8"
+            android:layout_marginRight="33dp"
+            android:layout_marginEnd="33dp" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale4"
+            android:background="#00cc2222"
+            android:layout_marginRight="29dp"
+            android:layout_marginEnd="29dp"
+            android:layout_alignBaseline="@+id/Whale3"
+            android:layout_alignBottom="@+id/Whale3"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/Whale11"
+            android:background="#00cc2222"
+            android:layout_alignBaseline="@+id/Whale12"
+            android:layout_alignBottom="@+id/Whale12"
+            android:layout_alignLeft="@+id/Whale7"
+            android:layout_alignStart="@+id/Whale7" />
     </RelativeLayout>
+
+
 </LinearLayout>
