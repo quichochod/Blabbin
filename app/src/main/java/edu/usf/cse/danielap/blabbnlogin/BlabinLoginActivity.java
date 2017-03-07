@@ -3,6 +3,7 @@ package edu.usf.cse.danielap.blabbnlogin;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.database.DatabaseUtils;
@@ -113,12 +114,16 @@ public class BlabinLoginActivity extends AppCompatActivity {
 
         newUsers = myBlabbinDBManager.createUser(userName, password);
 
-        Cursor userInfo = myBlabbinDBManager.getUser(userName);
+        Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
+        startActivity(i);
 
-        Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
+        // close this activity
+        finish();
 
 
+        //Cursor userInfo = myBlabbinDBManager.getUser(userName);
 
+        //Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
 
     }
 
