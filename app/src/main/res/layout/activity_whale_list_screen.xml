@@ -1,0 +1,59 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/whale_list_splash"
+    android:weightSum="1">
+
+    <!--Add whale text-->
+    <TextView
+        android:text="Create New Whale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:id="@+id/text_add_whale"
+        android:layout_alignTop="@+id/buttonAddWhale"
+        android:layout_toRightOf="@+id/buttonAddWhale"
+        android:layout_toEndOf="@+id/buttonAddWhale"
+        android:layout_alignBottom="@+id/buttonAddWhale" />
+
+    <!--Initial Whale-->
+
+    <ImageButton
+        android:id="@+id/buttonAddWhale"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/button_add_whale"
+        android:layout_marginTop="216dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/buttonInitialWhale"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_whale_view"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/text_add_whale"
+        android:layout_alignLeft="@+id/buttonAddWhale"
+        android:layout_alignStart="@+id/buttonAddWhale" />
+
+    <TextView
+        android:text="Fish Bowl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:id="@+id/text_intial_whale"
+        android:layout_alignBottom="@+id/buttonInitialWhale"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
+</RelativeLayout>
