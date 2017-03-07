@@ -3,6 +3,7 @@ package edu.usf.cse.danielap.blabbnlogin;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.database.DatabaseUtils;
@@ -54,23 +55,21 @@ public class BlabinLoginActivity extends AppCompatActivity {
 
     BlabbinDBManager myBlabbinDBManager;
     long newUsers;
-    EditText pw;
-    EditText email;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabin_login);
 
+        // Get Username and Password field views
         mUserNameView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-
+        // Create and open database
         myBlabbinDBManager = new BlabbinDBManager(this);
         myBlabbinDBManager.open();
 
-
+        // Create a User
         Button createUser = (Button) findViewById(R.id.create_user_button);
         createUser.setOnClickListener(new OnClickListener() {
             @Override
@@ -79,10 +78,14 @@ public class BlabinLoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
+        // Login a User
+        Button login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLogin();
+            }
+        });
 
         // Font path
         String fontHobo = "fonts/Hobo Std Medium.ttf";
@@ -116,14 +119,18 @@ public class BlabinLoginActivity extends AppCompatActivity {
         Cursor userInfo = myBlabbinDBManager.getUser(userName);
 
         Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
-
-
-
-
     }
 
-
-
+    private void userLogin(){
+        String userName = mUserNameView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        Cursor userInfo = myBlabbinDBManager.validateCredentials(userName, password);
+        if(userInfo != null){
+            Intent i = new Intent(BlabinLoginActivity.this, BlabbinWhaleActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
 
 
 }
