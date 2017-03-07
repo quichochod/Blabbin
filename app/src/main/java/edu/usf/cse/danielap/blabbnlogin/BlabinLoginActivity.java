@@ -139,7 +139,7 @@ public class BlabinLoginActivity extends AppCompatActivity {
         Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
 
         if(userInfo.getCount() != 0){
-            Intent i = new Intent(BlabinLoginActivity.this, BlabbinWhaleActivity.class);
+            Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
             startActivity(i);
             finish();
         }

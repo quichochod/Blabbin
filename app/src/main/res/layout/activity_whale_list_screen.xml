@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/whale_list_splash"
+    android:background="@drawable/whalelistbackground"
     android:weightSum="1">
 
     <!--Add whale text-->
@@ -43,7 +43,9 @@
         android:layout_marginTop="20dp"
         android:layout_below="@+id/text_add_whale"
         android:layout_alignLeft="@+id/buttonAddWhale"
-        android:layout_alignStart="@+id/buttonAddWhale" />
+        android:layout_alignStart="@+id/buttonAddWhale"
+        android:src="@drawable/ic_chevron_right_black"
+        android:paddingLeft="280dp"/>
 
     <TextView
         android:text="Fish Bowl"
@@ -52,8 +54,11 @@
         android:textColor="#000000"
         android:textSize="24sp"
         android:id="@+id/text_intial_whale"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
         android:layout_alignBottom="@+id/buttonInitialWhale"
-        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/buttonInitialWhale"
+        android:layout_alignStart="@+id/buttonInitialWhale"
         android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

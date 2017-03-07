@@ -62,94 +62,72 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.Whale1:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale2:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale3:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale4:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
 
                 case R.id.Whale5:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale6:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale7:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale8:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
 
                 case R.id.Whale9:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale10:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale11:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale12:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
-
                 case R.id.Whale13:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale14:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale15:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
                 case R.id.Whale16:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
             }
         }
     };
-
-
-  /*  public void addListenerOnButton() {
-
-        final Context context = this;
-
-        button = (Button) findViewById(R.id.Whale1);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                Intent intent = new Intent(context, BlabbinWhaleActivity.class);
-                startActivity(intent);
-
-            }
-
-        });
-
-    }*/
 }

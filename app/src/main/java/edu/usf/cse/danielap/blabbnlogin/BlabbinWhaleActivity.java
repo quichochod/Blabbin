@@ -18,9 +18,6 @@ import java.util.ArrayList;
 
 public class BlabbinWhaleActivity extends ActionBarActivity {
 
-    private EditText messageET;
-    private ListView messagesContainer;
-    private Button sendBtn;
 
 
     protected void onCreate(Bundle savedInstanceState) {
