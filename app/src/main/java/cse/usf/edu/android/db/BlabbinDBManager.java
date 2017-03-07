@@ -44,6 +44,7 @@ public class BlabbinDBManager {
     public long createUser(String UserName, String pw){
         ContentValues initialValues = createUsersValues(UserName, pw);
         return database.insert(USER_DB_TABLE, null, initialValues);
+
     }
 
     public boolean updateUsers(String UserName, String pw){
@@ -59,7 +60,7 @@ public class BlabbinDBManager {
 
     public Cursor getUser(String UserName) throws SQLException{
 
-        String whereClause = USER_KEY_USERNAME + "=" + UserName;
+        String whereClause = USER_KEY_USERNAME + "=" + "'" + UserName + "'" ;
         Cursor mCursor = db.query(USER_DB_TABLE, new String[] {USER_KEY_USERNAME, USER_KEY_PASSOWRD}, whereClause, null, null, null, null, null);
         if(mCursor != null){
             mCursor.moveToFirst();

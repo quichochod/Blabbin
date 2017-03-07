@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BlabbinDBHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "Users";
+    private static final String DB_NAME = "users";
     private static final int DB_VERSION = 1;
 
     //Creating the Database with sql statements

@@ -46,31 +46,85 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class BlabinLoginActivity extends AppCompatActivity {
 
 
+
+    // UI references.
+    private AutoCompleteTextView mUserNameView;
+    private EditText mPasswordView;
+
+
+    BlabbinDBManager myBlabbinDBManager;
+    long newUsers;
+    EditText pw;
+    EditText email;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabin_login);
+
+        mUserNameView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+
+
+        myBlabbinDBManager = new BlabbinDBManager(this);
+        myBlabbinDBManager.open();
+
+
+        Button createUser = (Button) findViewById(R.id.create_user_button);
+        createUser.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newUser();
+            }
+        });
+
+
+
+
 
 
         // Font path
         String fontHobo = "fonts/Hobo Std Medium.ttf";
         String fontHelvetica = "fonts/HelveticaNeue.ttf";
 
-        // text view label
-        TextView txtLoginbut = (TextView) findViewById(R.id.email_sign_in_button);
-        TextView txtCreateUser = (TextView) findViewById(R.id.create_user_button);
-        TextView txtemail = (TextView) findViewById(R.id.email);
-        TextView txtpassword = (TextView) findViewById(R.id.password);
+//        // text view label
+//        TextView txtLoginbut = (TextView) findViewById(R.id.email_sign_in_button);
+//        TextView txtCreateUser = (TextView) findViewById(R.id.create_user_button);
+//        TextView txtemail = (TextView) findViewById(R.id.email);
+//        TextView txtpassword = (TextView) findViewById(R.id.password);
 
         // Loading Font Face
         Typeface tfHobo = Typeface.createFromAsset(getAssets(), fontHobo);
         Typeface tfHelvetica = Typeface.createFromAsset(getAssets(), fontHelvetica);
 
-        // Applying font
-        txtLoginbut.setTypeface(tfHobo);
-        txtemail.setTypeface(tfHelvetica);
-        txtpassword.setTypeface(tfHelvetica);
-        txtCreateUser.setTypeface(tfHobo);
+//        // Applying font
+//        txtLoginbut.setTypeface(tfHobo);
+//        txtemail.setTypeface(tfHelvetica);
+//        txtpassword.setTypeface(tfHelvetica);
+//        txtCreateUser.setTypeface(tfHobo);
+
     }
+
+    private void newUser(){
+
+        String userName = mUserNameView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        newUsers = myBlabbinDBManager.createUser(userName, password);
+
+        Cursor userInfo = myBlabbinDBManager.getUser(userName);
+
+        Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
+
+
+
+
+    }
+
+
+
+
+
 }
 
