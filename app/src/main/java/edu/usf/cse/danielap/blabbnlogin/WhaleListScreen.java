@@ -31,7 +31,7 @@ public class WhaleListScreen extends AppCompatActivity{
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.buttonInitialWhale:
-                    intent = new Intent(context, BlabbinWhaleActivity.class);
+                    intent = new Intent(context, MessageDB.class);
                     startActivity(intent);
                     break;
             }

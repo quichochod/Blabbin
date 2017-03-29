@@ -56,12 +56,15 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
 
     final Context context = this;
     Intent intent;
+    //add this variable declaration:
+    public static String whaleId;
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.Whale1:
+                    whaleId="whale01";
                     intent = new Intent(context, WhaleListScreen.class);
                     startActivity(intent);
                     break;
