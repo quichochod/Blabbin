@@ -20,6 +20,7 @@ public class WhaleListScreen extends AppCompatActivity{
     ImageButton addWhale;
     EditText inputWhaleName;
     Button submit;
+    ImageButton initialWhale;
 
 
 
@@ -32,6 +33,7 @@ public class WhaleListScreen extends AppCompatActivity{
         addWhale = (ImageButton) findViewById(R.id.buttonAddWhale);
         inputWhaleName = (EditText) findViewById(R.id.NameWhale);
         submit = (Button) findViewById(R.id.SubmitWhaleName);
+        initialWhale = (ImageButton) findViewById(R.id.buttonInitialWhale);
 
         addWhale.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,18 @@ public class WhaleListScreen extends AppCompatActivity{
 
 
             }
+        });
+
+        initialWhale.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(WhaleListScreen.this, MessageDB.class);
+                    startActivity(intent);
+
+                finish();
+            }
+
+
         });
 
 
