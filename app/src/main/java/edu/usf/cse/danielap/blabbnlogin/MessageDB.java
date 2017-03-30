@@ -1,5 +1,6 @@
 package edu.usf.cse.danielap.blabbnlogin;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -53,22 +54,14 @@ public class MessageDB extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //EditText input = (EditText) findViewById(R.id.input);
-
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 EditText input = (EditText)findViewById(R.id.input);
-                //FirebaseDatabase.getInstance().getReference().push().setValue();
-                //input.setText("");
 
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("messages_whale01").push().setValue(new ChatMessage(input.getText().toString()));
 
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
-                //messageRef.setValue(input.getText().toString());
-                //Log.d("ADebugTag", "Value:2 " + input.getText().toString());
-
-
 
                 // Clear the input
                 input.setText("");
@@ -92,24 +85,21 @@ public class MessageDB extends AppCompatActivity {
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
                 TextView messageText = (TextView)v.findViewById(R.id.message_text);
-                //TextView messageUser = (ImageView)v.findViewById(R.id.message_user);
-                //ImageView messageUser = (ImageView) findViewById(R.id.message_user);
+                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
                 TextView messageTime = (TextView)v.findViewById(R.id.message_time);
 
-                String whaleId= "whale01";
+                //ImageView image1 = (ImageView)findViewById(R.id.image1);
+                //image1.setImageResource(R.drawable.ic_arrow_forward_black);
+                //Set whale image
+                messageUser.setBackgroundResource(R.drawable.whale01);
+
                 // Set their text
                 messageText.setText(model.getMessageText());
-
-
-                //int id = getResources().getIdentifier("yourpackagename:drawable/" + whaleId, null, null);
-               // messageUser.setImageResource(id);
-                ImageView imageView = (ImageView) findViewById(R.id.message_user);
-                imageView.setImageResource(R.drawable.whale01);
-
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getMessageTime()));
             }
         };
+
 
         listOfMessages.setAdapter(adapter);
 
