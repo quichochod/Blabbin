@@ -1,25 +1,27 @@
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/whalelistbackground"
+    android:orientation="vertical"
+    android:visibility="visible"
     android:weightSum="1">
 
     <!--Add whale text-->
     <TextView
-        android:text="Create New Whale"
+        android:id="@+id/text_add_whale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonAddWhale"
+        android:layout_alignTop="@+id/buttonAddWhale"
+        android:layout_toEndOf="@+id/buttonAddWhale"
+        android:layout_toRightOf="@+id/buttonAddWhale"
         android:gravity="center"
+        android:text="Create New Whale"
         android:textColor="#000000"
         android:textSize="20sp"
-        android:id="@+id/text_add_whale"
-        android:layout_alignTop="@+id/buttonAddWhale"
-        android:layout_toRightOf="@+id/buttonAddWhale"
-        android:layout_toEndOf="@+id/buttonAddWhale"
-        android:layout_alignBottom="@+id/buttonAddWhale" />
+        android:visibility="visible" />
 
     <!--Initial Whale-->
 
@@ -27,38 +29,63 @@
         android:id="@+id/buttonAddWhale"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:background="@drawable/button_add_whale"
-        android:layout_marginTop="216dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="216dp"
+        android:background="@drawable/button_add_whale" />
 
     <ImageButton
         android:id="@+id/buttonInitialWhale"
         android:layout_width="340dp"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_whale_view"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/text_add_whale"
         android:layout_alignLeft="@+id/buttonAddWhale"
         android:layout_alignStart="@+id/buttonAddWhale"
-        android:src="@drawable/ic_chevron_right_black"
-        android:paddingLeft="280dp"/>
+        android:layout_below="@+id/text_add_whale"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_whale_view"
+        android:paddingLeft="280dp"
+        android:src="@drawable/ic_chevron_right_black" />
 
     <TextView
-        android:text="Fish Bowl"
+        android:id="@+id/text_intial_whale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:id="@+id/text_intial_whale"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
         android:layout_alignBottom="@+id/buttonInitialWhale"
         android:layout_alignLeft="@+id/buttonInitialWhale"
         android:layout_alignStart="@+id/buttonInitialWhale"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:text="Fish Bowl"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/NameWhale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_add_whale"
+        android:layout_alignBottom="@+id/text_add_whale"
+        android:layout_toEndOf="@+id/buttonAddWhale"
+        android:layout_toRightOf="@+id/buttonAddWhale"
+        android:ems="10"
+        android:hint="Type Whale Name!"
+        android:inputType="textCapWords"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/SubmitWhaleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/NameWhale"
+        android:layout_toEndOf="@+id/NameWhale"
+        android:layout_toRightOf="@+id/NameWhale"
+        android:text="Submit"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:visibility="invisible" />
 
 </RelativeLayout>

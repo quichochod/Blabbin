@@ -1,0 +1,66 @@
+{
+  "project_info": {
+    "project_number": "48480417817",
+    "firebase_url": "https://blabbin-96e84.firebaseio.com",
+    "project_id": "blabbin-96e84",
+    "storage_bucket": "blabbin-96e84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48480417817:android:1f70d556a0cabf68",
+        "android_client_info": {
+          "package_name": "edu.usf.cse.danielap.blabbnlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48480417817-ucn2ked0ifapedlg9ota08n33kbmj1o0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usf.cse.danielap.blabbnlogin",
+            "certificate_hash": "95471683cd9220149dc0d6dbf7fe14fab7f03d0a"
+          }
+        },
+        {
+          "client_id": "48480417817-76tjko04g1d3q1b0dmnrm5vs7q4ff27l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usf.cse.danielap.blabbnlogin",
+            "certificate_hash": "a2784d8806c1600b2cc82c5f39fd75a95b2bc476"
+          }
+        },
+        {
+          "client_id": "48480417817-n6smne7bkmvghc4483efoim29emetgvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsGdvFTBgXXg4QBfj6DriqFAj4cQQ2ix8"
+        },
+        {
+          "current_key": "AIzaSyBfyr5gLHZeGPZ2T8hn2X0zO0Sy8TX6Knc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48480417817-n6smne7bkmvghc4483efoim29emetgvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
