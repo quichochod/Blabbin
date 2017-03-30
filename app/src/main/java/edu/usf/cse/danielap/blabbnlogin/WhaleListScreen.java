@@ -44,6 +44,7 @@ public class WhaleListScreen extends AppCompatActivity{
 
 
 
+
             }
         });
 

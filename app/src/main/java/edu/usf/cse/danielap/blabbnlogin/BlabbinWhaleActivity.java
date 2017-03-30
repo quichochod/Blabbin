@@ -22,9 +22,14 @@ public class BlabbinWhaleActivity extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blabbin_whale);
+        setContentView(R.layout.messages_main_act);
 
-        // Font path
+        // Load chat room contents
+
+
+
+
+       /* // Font path
         String fontPath = "fonts/Hobo Std Medium.ttf";
 
         // text view label
@@ -34,7 +39,7 @@ public class BlabbinWhaleActivity extends ActionBarActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
 
         // Applying font
-        txtWhale.setTypeface(tf);
+        txtWhale.setTypeface(tf);*/
     }
 
 

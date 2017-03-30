@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="edu.usf.cse.danielap.blabbnlogin">
 
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-    <uses-sdk tools:overrideLibrary="com.google.firebase.auth.api, com.google.android.gms.base, com.google.firebase, com.google.android.gms.tasks, com.google.android.gms"/>
+    <uses-sdk tools:overrideLibrary="com.google.firebase.auth.api, com.google.android.gms.base, com.google.firebase, com.google.android.gms.tasks, com.google.android.gms, com.firebase.ui, com.firebase.ui.auth, com.facebook, android.support.customtabs"/>
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
     <application
@@ -48,6 +52,10 @@
 
         <activity
             android:name=".BlabbinWhaleActivity">
+        </activity>
+
+        <activity
+            android:name=".MessageDB">
         </activity>
 
     </application>
