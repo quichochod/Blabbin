@@ -30,6 +30,8 @@ import static android.R.attr.value;
  * Created by danielaperez on 3/26/17.
  */
 
+import edu.usf.cse.danielap.blabbnlogin.WhaleListScreen;
+
 public class MessageDB extends AppCompatActivity {
 
     private FirebaseListAdapter<ChatMessage> adapter;
@@ -60,7 +62,6 @@ public class MessageDB extends AppCompatActivity {
 
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("messages_whale01").push().setValue(new ChatMessage(input.getText().toString()));
-
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
 
                 // Clear the input

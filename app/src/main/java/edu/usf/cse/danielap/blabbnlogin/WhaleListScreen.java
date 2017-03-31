@@ -31,8 +31,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import edu.usf.cse.danielap.blabbnlogin.Whale;
 
@@ -44,20 +48,25 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     EditText inputWhaleName;
     Button submit;
     ImageButton initialWhale;
-
-
+    Button refreshLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whale_list_screen);
 
+        // Ask for permissions, build google api, and connect to play services
+        if (checkGooglePlayServices() && checkLocationPermission()) {
+            buildGoogleApiClient();
+            searchWhaleList();
+        }
+
         whaleName = (TextView) findViewById(R.id.text_add_whale);
         addWhale = (ImageButton) findViewById(R.id.buttonAddWhale);
         inputWhaleName = (EditText) findViewById(R.id.NameWhale);
         submit = (Button) findViewById(R.id.SubmitWhaleName);
         initialWhale = (ImageButton) findViewById(R.id.buttonInitialWhale);
-
+        refreshLocation = (Button) findViewById(R.id.refreshLocation);
         addWhale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,9 +75,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
                 inputWhaleName.setVisibility(view.VISIBLE);
                 submit.setVisibility(view.VISIBLE);
-
-
-
 
             }
         });
@@ -81,16 +87,15 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
                 finish();
             }
-
-
         });
 
-
-
-
-
+        refreshLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createLocationRequest();
+            }
+        });
     }
-
 
 
 //    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
@@ -196,7 +201,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
             }
         }
-        return false;
+        return true;
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -214,7 +219,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
     @Override
     public void onConnected(Bundle bundle) {
-//
         if ( ContextCompat.checkSelfPermission( this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION ) ==
                 PackageManager.PERMISSION_GRANTED ) {
@@ -269,14 +273,17 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     DatabaseReference mDatabase;
 
     public boolean searchWhaleList(){
+        final List<String> currWhaleList = new ArrayList<String>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        final List<String> currWhaleList = null;
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                final Whale whale_data = dataSnapshot.getValue(Whale.class);
-                Log.d("FB: Whale Name", "Whale name is " + whale_data.getName());
-                currWhaleList.add(0, whale_data.getName());
+//                String whale_name = (String) dataSnapshot.getValue();
+                String whale_key = dataSnapshot.getKey();
+                currWhaleList.add(0, whale_key);
+//                Log.d("Name", " Name is " + whale_name);
+                Log.d("Key", "Key is " + whale_key);
+                Log.d("DDEGJENG", "JBEAFKLJBAELJNFALEJNFLJENAF");
             }
 
             @Override
@@ -317,5 +324,17 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
         //Return list of whales
         return true;
+    }
+
+    public boolean withinDistance(Location whale_loc){
+
+        float distance = myCurrentLocation.distanceTo(whale_loc);
+        if(distance <= maxWhaleRange){
+            return true;
+        }
+        else{
+            Log.d("RANGE", "Not withing distance of this whale");
+            return false;
+        }
     }
 }
