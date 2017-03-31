@@ -104,6 +104,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                 addWhale.setVisibility(view.VISIBLE);
                 whaleName.setVisibility(view.VISIBLE);
 
+                inputWhaleName.setText("");
                 inputWhaleName.setVisibility(view.INVISIBLE);
                 submit.setVisibility(view.INVISIBLE);
             }
