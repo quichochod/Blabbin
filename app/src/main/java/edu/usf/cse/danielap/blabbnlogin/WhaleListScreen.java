@@ -6,9 +6,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,7 +52,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     ImageButton addWhale;
     EditText inputWhaleName;
     Button submit;
-    ImageButton initialWhale;
     Button refreshLocation;
 
     @Override
@@ -65,7 +69,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         addWhale = (ImageButton) findViewById(R.id.buttonAddWhale);
         inputWhaleName = (EditText) findViewById(R.id.NameWhale);
         submit = (Button) findViewById(R.id.SubmitWhaleName);
-        initialWhale = (ImageButton) findViewById(R.id.buttonInitialWhale);
         refreshLocation = (Button) findViewById(R.id.refreshLocation);
         addWhale.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +82,51 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             }
         });
 
-        initialWhale.setOnClickListener(new View.OnClickListener(){
+//        initialWhale.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                Intent intent = new Intent(WhaleListScreen.this, MessageDB.class);
+//                    startActivity(intent);
+//
+//                finish();
+//            }
+//
+//
+//        });
+
+        submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
+                createNewButton();
+
+
+                addWhale.setVisibility(view.VISIBLE);
+                whaleName.setVisibility(view.VISIBLE);
+
+                inputWhaleName.setVisibility(view.INVISIBLE);
+                submit.setVisibility(view.INVISIBLE);
+            }
+        });
+
+
+    }
+
+
+    public void createNewButton()
+    {
+        Button myButton = new Button(this);
+        myButton.setText(inputWhaleName.getText().toString());
+        myButton.setTextSize(24);
+        myButton.setBackgroundColor(Color.WHITE);
+        myButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(WhaleListScreen.this, MessageDB.class);
+                    intent.putExtra("Whale Name", inputWhaleName.getText().toString());
                     startActivity(intent);
+                //Retrieve whale name like this....
+                //Intent intent = getIntent();
+                //String whaleName = intent.getExtras().getString("Whale Name");
 
                 finish();
             }
@@ -95,32 +138,18 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                 createLocationRequest();
             }
         });
+
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 40, 0, 0);
+
+
+        ll.addView(myButton, lp);
+
+
     }
 
-
-//    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//
-//                if (view.getId() == R.id.buttonAddWhale) {
-//                    View createWhale = WhaleListScreen.this.findViewById(R.id.text_add_whale);
-//                    createWhale.setVisibility(View.INVISIBLE);
-//
-//                    View whaleName = WhaleListScreen.this.findViewById(R.id.NameWhale);
-//                    whaleName.setVisibility(View.VISIBLE);
-//
-//
-//                }
-//
-//
-//            switch (view.getId()) {
-//                case R.id.buttonInitialWhale:
-////                    intent = new Intent(context, BlabbinWhaleActivity.class);
-////                    startActivity(intent);
-//                    break;
-//            }
-//        }
-//    };
 
     /**************************************************************
      * Google Location Services implementation and methods

@@ -1,5 +1,6 @@
 package edu.usf.cse.danielap.blabbnlogin;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -39,12 +40,17 @@ public class MessageDB extends AppCompatActivity {
     //DatabaseReference messageRef = database.getReference("message");
     //String value="TEST";
 
+    String whaleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages_main_act);
+
+        Intent i = getIntent();
+        whaleName = i.getExtras().getString("Whale Name");
+
 
 
         //displayChatMessages();

@@ -1,6 +1,7 @@
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/whaleList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/whalelistbackground"
@@ -37,31 +38,7 @@
         android:layout_marginTop="216dp"
         android:background="@drawable/button_add_whale" />
 
-    <ImageButton
-        android:id="@+id/buttonInitialWhale"
-        android:layout_width="340dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/buttonAddWhale"
-        android:layout_alignStart="@+id/buttonAddWhale"
-        android:layout_below="@+id/text_add_whale"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_whale_view"
-        android:paddingLeft="280dp"
-        android:src="@drawable/ic_chevron_right_black" />
 
-    <TextView
-        android:id="@+id/text_intial_whale"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonInitialWhale"
-        android:layout_alignLeft="@+id/buttonInitialWhale"
-        android:layout_alignStart="@+id/buttonInitialWhale"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        android:text="Fish Bowl"
-        android:textColor="#000000"
-        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/NameWhale"
@@ -96,5 +73,19 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/SubmitWhaleName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
+        <LinearLayout
+            android:id="@+id/whaleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+
+    </ScrollView>
 </RelativeLayout>
