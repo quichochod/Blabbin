@@ -110,6 +110,13 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             }
         });
 
+        refreshLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createLocationRequest();
+            }
+        });
+
 
     }
 
@@ -133,21 +140,12 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             }
         });
 
-        refreshLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createLocationRequest();
-            }
-        });
-
-
         LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 40, 0, 0);
 
 
         ll.addView(myButton, lp);
-
 
     }
 
