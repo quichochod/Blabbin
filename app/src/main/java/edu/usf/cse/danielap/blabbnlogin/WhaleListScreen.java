@@ -35,6 +35,9 @@ public class WhaleListScreen extends AppCompatActivity{
         submit = (Button) findViewById(R.id.SubmitWhaleName);
         initialWhale = (ImageButton) findViewById(R.id.buttonInitialWhale);
 
+        Intent intent2 = getIntent();
+        final String whaleIcon = intent2.getExtras().getString("User Whale");
+
         addWhale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,9 +57,10 @@ public class WhaleListScreen extends AppCompatActivity{
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(WhaleListScreen.this, MessageDB.class);
+                intent.putExtra("User Whale", whaleIcon);
                     startActivity(intent);
 
-                finish();
+               // finish();
             }
 
 

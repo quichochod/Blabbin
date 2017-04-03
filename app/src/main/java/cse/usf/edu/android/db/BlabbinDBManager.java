@@ -13,9 +13,10 @@ import android.database.sqlite.SQLiteDatabase;
 public class BlabbinDBManager {
 
     //DB fields for Users table
-    private static final String USER_DB_TABLE = "users";
-    private static final String USER_KEY_USERNAME = "_id";
-    private static final String USER_KEY_PASSOWRD = "password";
+    private static final String USER_DB_TABLE = "UserWhales";
+    //private static final String USER_KEY_USERNAME = "username";
+   // private static final String USER_KEY_PASSOWRD = "password";
+    private static final String USER_KEY_WHALE = "whale";
 
     private Context context;
     private SQLiteDatabase database;
@@ -34,23 +35,26 @@ public class BlabbinDBManager {
     }
 
     //Wraps reccord data passed in create, delete, update, and query commands
-    private ContentValues createUsersValues(String UserName, String pw){
+    private ContentValues createUsersValues(String whale){
         ContentValues values = new ContentValues();
-        values.put(USER_KEY_USERNAME, UserName);
-        values.put(USER_KEY_PASSOWRD, pw);
+        //values.put(USER_KEY_USERNAME, UserName);
+        //values.put(USER_KEY_PASSOWRD, pw);
+        values.put(USER_KEY_WHALE, whale);
         return values;
     }
 
-    public long createUser(String UserName, String pw){
-        ContentValues initialValues = createUsersValues(UserName, pw);
+    public long createUser(String whale){
+        ContentValues initialValues = createUsersValues(whale);
         return database.insert(USER_DB_TABLE, null, initialValues);
 
     }
 
-    public boolean updateUsers(String UserName, String pw){
-        //We do not need this table to update Users information.. ever. For now...
-        //This function will not be used.
-        return false;
+    public boolean updateWhale(String whal){
+
+        ContentValues args = new ContentValues();
+        args.put(USER_KEY_WHALE, whal);
+        //return db.update(USER_DB_TABLE, args,"whale = ?", null);
+        return true;
     }
 
     public boolean deleteUser(String UserName){
@@ -58,25 +62,25 @@ public class BlabbinDBManager {
         return false;
     }
 
-    public Cursor getUser(String UserName) throws SQLException{
+    public Cursor getUser() throws SQLException{
 
-        String whereClause = USER_KEY_USERNAME + "=" + "'" + UserName + "'" ;
-        Cursor mCursor = db.query(USER_DB_TABLE, new String[] {USER_KEY_USERNAME, USER_KEY_PASSOWRD}, whereClause, null, null, null, null, null);
+        String whereClause = USER_KEY_WHALE + "=" + "'" + "'" ;
+        Cursor mCursor = db.query(USER_DB_TABLE, new String[] {USER_KEY_WHALE}, whereClause, null, null, null, null, null);
         if(mCursor != null){
             mCursor.moveToFirst();
         }
         return mCursor;
     }
 
-    public Cursor validateCredentials(String userName, String pw){
+    /*public Cursor validateCredentials(String userName, String pw){
         String whereClause = USER_KEY_USERNAME + "=" + "'" + userName + "'" + " AND " +
-                             USER_KEY_PASSOWRD + "=" + "'" + pw + "'";
+                USER_KEY_PASSOWRD + "=" + "'" + pw + "'";
         Cursor mCursor = db.query(USER_DB_TABLE, new String[] {USER_KEY_USERNAME, USER_KEY_PASSOWRD}, whereClause, null, null, null, null, null);
         if(mCursor != null){
             mCursor.moveToFirst();
         }
         return mCursor;
-    }
+    }*/
 
 
 
