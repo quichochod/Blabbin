@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,13 +37,18 @@ import static android.R.attr.value;
  * Created by danielaperez on 3/26/17.
  */
 
+import edu.usf.cse.danielap.blabbnlogin.WhaleListScreen;
+
 public class MessageDB extends AppCompatActivity {
 
     private FirebaseListAdapter<ChatMessage> adapter;
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference messageRef = database.getReference("message");
-    //String value="TEST";
-    BlabbinDBManager myBlabbinDBManager;
+    //BlabbinDBManager myBlabbinDBManager;
+    //String whaleName;
+    //Cursor WhaleChosen = myBlabbinDBManager.getUser();
+    //String result = null;
+    //String test2;
+    String whaleIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +59,9 @@ public class MessageDB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages_main_act);
 
-
         //displayChatMessages();
         Intent intent = getIntent();
-        final String whaleIcon = intent.getExtras().getString("User Whale");
-
-
-        Context context = getApplicationContext();
-        final int id = context.getResources().getIdentifier(whaleIcon,"drawable", context.getPackageName());
-        String color = context.getResources().getDrawable(id).toString();
-        final String id2 = Integer.toString(id);
-
-
+        whaleIcon = intent.getExtras().getString("User Whale");
 
 
 
@@ -81,10 +78,7 @@ public class MessageDB extends AppCompatActivity {
                 String test = input.getText().toString();
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-                mDatabase.child("messages_whale01").push().setValue(new ChatMessage(test.toString(), whaleIcon));
-                //mDatabase.child("messages_whale01").child("user_whale").push().setValue(id);
-                //mDatabase.child("messages_whale01").push().setValue(new ChatMessage(input.getText().toString()));
+                mDatabase.child("messages_whale01").push().setValue(new ChatMessage(test, whaleIcon));
 
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
 
@@ -97,10 +91,10 @@ public class MessageDB extends AppCompatActivity {
 
         });
 
-    displayChatMessages(whaleIcon);
+    displayChatMessages();
     }
 
-    private void displayChatMessages(final String whaleIconColor) {
+    private void displayChatMessages() {
 
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
@@ -166,16 +160,6 @@ public class MessageDB extends AppCompatActivity {
                     messageUser.setBackgroundResource(R.drawable.bluewhale);
                 }
 
-
-               /* Intent intent = getIntent();
-                String whaleIcon = intent.getExtras().getString("User Whale");
-                Context context = getApplicationContext();
-                int id = context.getResources().getIdentifier(whaleIcon,"drawable", context.getPackageName());*/
-                //String WhaleColor = model.getMessageUser();
-                //int whalenumber = Integer.parseInt(WhaleColor);
-                //set whale icon
-               // messageUser.setBackgroundResource(idNum);
-                //messageUser.setText(model.getMessageUser());
                 // Set their text
                 messageText.setText(model.getMessageText());
                 // Format the date before showing it

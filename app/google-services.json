@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "48480417817-t8r9eq0hsm9q0idfnvb5paucrqk0qirn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usf.cse.danielap.blabbnlogin",
+            "certificate_hash": "0c616649356392a8d2c54b389ca245ab0698676b"
+          }
+        },
+        {
           "client_id": "48480417817-ucn2ked0ifapedlg9ota08n33kbmj1o0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -13,10 +13,10 @@ import android.database.sqlite.SQLiteDatabase;
 public class BlabbinDBManager {
 
     //DB fields for Users table
-    private static final String USER_DB_TABLE = "UserWhales";
+    private static final String USER_DB_TABLE = "UserWhales2";
     //private static final String USER_KEY_USERNAME = "username";
    // private static final String USER_KEY_PASSOWRD = "password";
-    private static final String USER_KEY_WHALE = "whale";
+    private static final String USER_KEY_WHALE = "whales";
 
     private Context context;
     private SQLiteDatabase database;
@@ -29,7 +29,7 @@ public class BlabbinDBManager {
     }
 
     public void open() throws SQLException{
-        dbHelper = new BlabbinDBHelper(context);
+        dbHelper = new BlabbinDBHelper(context, "UserWhales2", null ,1 );
         database = dbHelper.getWritableDatabase();
         db = dbHelper.getReadableDatabase();
     }
@@ -70,6 +70,10 @@ public class BlabbinDBManager {
             mCursor.moveToFirst();
         }
         return mCursor;
+    }
+
+    public void close() {
+        dbHelper.close();
     }
 
     /*public Cursor validateCredentials(String userName, String pw){

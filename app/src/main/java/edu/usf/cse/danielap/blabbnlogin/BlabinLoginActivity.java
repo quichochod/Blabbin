@@ -62,8 +62,8 @@ public class BlabinLoginActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
 
         // Create and open database
-        myBlabbinDBManager = new BlabbinDBManager(this);
-        myBlabbinDBManager.open();
+        //myBlabbinDBManager = new BlabbinDBManager(this);
+        //myBlabbinDBManager.open();
 
        /* // Create a User and save in SQLite////////////////////////////////////////
         Button createUserSQL = (Button) findViewById(R.id.create_user_button);
@@ -108,6 +108,17 @@ public class BlabinLoginActivity extends AppCompatActivity {
                 createAccount();
             }
         });
+
+        // Create a User
+        Button signinUser = (Button) findViewById(R.id.login);
+        signinUser.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+
+
 
 
 
@@ -177,12 +188,6 @@ public class BlabinLoginActivity extends AppCompatActivity {
                     }
                 });
 
-//        Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
-//        startActivity(i);
-//
-//        // close this activity
-//        finish();
-
     }
 
 
@@ -216,9 +221,7 @@ public class BlabinLoginActivity extends AppCompatActivity {
                         else{
 
 
-                            //newUser();
-
-                            Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
+                            Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
                             startActivity(i);
                             finish();
                         }
@@ -227,52 +230,11 @@ public class BlabinLoginActivity extends AppCompatActivity {
                     }
                 });
 
-//        Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
-//        startActivity(i);
-//        finish();
+
 
 
     }
 
-   /* private void newUser(){
-
-        String userName = mUserNameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String whale = "default";
-
-       // newUsers = myBlabbinDBManager.createUser(userName, password, whale);
-
-
-    }*/
-
-   /* private void userLogin(){
-        String userName = mUserNameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        //Cursor userInfo = myBlabbinDBManager.validateCredentials(userName, password);
-
-        //Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
-
-        //if(userInfo.getCount() != 0){
-            Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
-            startActivity(i);
-            finish();
-        //}
-    }*/
-
-
-
-   /* private void updateContact(){
-        String test = "yessssss";
-        //long isUpdate = myBlabbinDBManager.updateWhale(test);
-
-       /* if (isUpdate == true ){
-            Log.d("Work","ayyyyyy");
-        }
-        else{
-            Log.d("Work","NONONONONONO");
-        }
-
-    }*/
 
 
 

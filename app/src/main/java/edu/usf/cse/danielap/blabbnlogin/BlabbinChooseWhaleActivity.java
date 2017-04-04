@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import cse.usf.edu.android.db.BlabbinDBHelper;
 import cse.usf.edu.android.db.BlabbinDBManager;
 
 import static edu.usf.cse.danielap.blabbnlogin.R.id.container;
@@ -30,16 +32,30 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
      */
 
     long newWhale;
-    BlabbinDBManager myBlabbinDBManager;
+    //BlabbinDBManager myBlabbinDBManager;
+    //BlabbinDBHelper exDB = BlabbinDBHelper.getInstance(this);
+   // final Context context = this;
+    private static String whaleName;
+
+    public static String getWhaleName(){
+        return whaleName;
+    }
+    public static void setWhaleName(String wn)
+    {
+        BlabbinChooseWhaleActivity.whaleName = wn;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabbin_choosewhale);
 
+        //Toast.makeText(getApplicationContext(),BlabbinDBHelper.getInstance(context).getString(), Toast.LENGTH_LONG).show();
+
         // Create and open database
-        myBlabbinDBManager = new BlabbinDBManager(this);
-        myBlabbinDBManager.open();
+        //myBlabbinDBManager = new BlabbinDBManager(this);
+        //myBlabbinDBManager.open();
+        //BlabbinDBHelper exDB = BlabbinDBHelper.getInstance(this);
         defineButtons();
     }
 
@@ -65,7 +81,7 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
         findViewById(R.id.Whale16).setOnClickListener(buttonClickListener);
     }
 
-    final Context context = this;
+    //final Context context = this;
     Intent intent;
     //add this variable declaration:
     public static String whaleId;
@@ -76,16 +92,19 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
             switch (view.getId()) {
                 case R.id.Whale1:
                     newUser("whale01");
+                    //myBlabbinDBManager.createUser("whale01");
                     //intent = new Intent(context, WhaleListScreen.class);
                     //startActivity(intent);
                     break;
                 case R.id.Whale2:
                     newUser("whale02");
+                    //myBlabbinDBManager.createUser("whale02");
                     //intent = new Intent(context, WhaleListScreen.class);
                    // startActivity(intent);
                     break;
                 case R.id.Whale3:
                     newUser("whale03");
+                    //myBlabbinDBManager.createUser("whale03");
                     //intent = new Intent(context, WhaleListScreen.class);
                     //startActivity(intent);
                     break;
@@ -162,15 +181,11 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
 
     public void newUser(String whaleName){
 
-        newWhale = myBlabbinDBManager.createUser(whaleName);
-        //Cursor userWhale = myBlabbinDBManager.getUser();
+        setWhaleName(whaleName);
         Intent i = new Intent(BlabbinChooseWhaleActivity.this, WhaleListScreen.class);
         i.putExtra("User Whale", whaleName);
         startActivity(i);
 
-        //finish();
-
-        //Log.d("!!Work for daddy!!", DatabaseUtils.dumpCursorToString(userWhale));
 
     }
 
