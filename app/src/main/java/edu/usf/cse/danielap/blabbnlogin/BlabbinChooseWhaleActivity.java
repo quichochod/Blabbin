@@ -2,13 +2,20 @@ package edu.usf.cse.danielap.blabbnlogin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import cse.usf.edu.android.db.BlabbinDBHelper;
+import cse.usf.edu.android.db.BlabbinDBManager;
 
 import static edu.usf.cse.danielap.blabbnlogin.R.id.container;
 
@@ -24,11 +31,31 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
 
+    long newWhale;
+    //BlabbinDBManager myBlabbinDBManager;
+    //BlabbinDBHelper exDB = BlabbinDBHelper.getInstance(this);
+   // final Context context = this;
+    private static String whaleName;
+
+    public static String getWhaleName(){
+        return whaleName;
+    }
+    public static void setWhaleName(String wn)
+    {
+        BlabbinChooseWhaleActivity.whaleName = wn;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabbin_choosewhale);
 
+        //Toast.makeText(getApplicationContext(),BlabbinDBHelper.getInstance(context).getString(), Toast.LENGTH_LONG).show();
+
+        // Create and open database
+        //myBlabbinDBManager = new BlabbinDBManager(this);
+        //myBlabbinDBManager.open();
+        //BlabbinDBHelper exDB = BlabbinDBHelper.getInstance(this);
         defineButtons();
     }
 
@@ -54,7 +81,7 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
         findViewById(R.id.Whale16).setOnClickListener(buttonClickListener);
     }
 
-    final Context context = this;
+    //final Context context = this;
     Intent intent;
     //add this variable declaration:
     public static String whaleId;
@@ -64,73 +91,102 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.Whale1:
-                    whaleId="whale01";
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale01");
+                    //myBlabbinDBManager.createUser("whale01");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale2:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale02");
+                    //myBlabbinDBManager.createUser("whale02");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                   // startActivity(intent);
                     break;
                 case R.id.Whale3:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale03");
+                    //myBlabbinDBManager.createUser("whale03");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale4:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale04");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
 
                 case R.id.Whale5:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale05");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale6:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale06");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale7:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale07");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale8:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale08");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
 
                 case R.id.Whale9:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale09");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale10:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale10");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale11:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale11");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale12:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale12");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                   // startActivity(intent);
                     break;
                 case R.id.Whale13:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale13");
+                   // intent = new Intent(context, WhaleListScreen.class);
+                   // startActivity(intent);
                     break;
                 case R.id.Whale14:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale14");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale15:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale15");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
                 case R.id.Whale16:
-                    intent = new Intent(context, WhaleListScreen.class);
-                    startActivity(intent);
+                    newUser("whale16");
+                    //intent = new Intent(context, WhaleListScreen.class);
+                    //startActivity(intent);
                     break;
             }
         }
     };
+
+    public void newUser(String whaleName){
+
+        setWhaleName(whaleName);
+        Intent i = new Intent(BlabbinChooseWhaleActivity.this, WhaleListScreen.class);
+        i.putExtra("User Whale", whaleName);
+        startActivity(i);
+
+
+    }
+
 }

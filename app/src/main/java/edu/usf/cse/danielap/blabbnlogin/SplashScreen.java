@@ -41,7 +41,7 @@ public class SplashScreen extends Activity {
                 // Start your app main activity
                 if (user != null) {
                     // User is signed in
-                    Intent i = new Intent(SplashScreen.this, WhaleListScreen.class);
+                    Intent i = new Intent(SplashScreen.this, BlabbinChooseWhaleActivity.class);
                     startActivity(i);
 
                     // close this activity

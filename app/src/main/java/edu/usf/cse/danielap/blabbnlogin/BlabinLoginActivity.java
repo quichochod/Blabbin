@@ -1,6 +1,8 @@
 package edu.usf.cse.danielap.blabbnlogin;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.database.DatabaseUtils;
 import android.support.annotation.NonNull;
@@ -22,7 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+import cse.usf.edu.android.db.BlabbinDBHelper;
 import cse.usf.edu.android.db.BlabbinDBManager;
+
+import static com.facebook.internal.FacebookRequestErrorClassification.KEY_NAME;
+import static edu.usf.cse.danielap.blabbnlogin.R.id.contact;
 
 
 /**
@@ -51,6 +57,10 @@ public class BlabinLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabin_login);
 
+        // Get Username and Password field views
+        mUserNameView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+
 
         //Firebase authentication Code
 
@@ -76,10 +86,6 @@ public class BlabinLoginActivity extends AppCompatActivity {
         mUserNameView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        // Create and open database
-        myBlabbinDBManager = new BlabbinDBManager(this);
-        myBlabbinDBManager.open();
-
 
         // Create a User
         Button createUser = (Button) findViewById(R.id.create_user_button);
@@ -90,6 +96,7 @@ public class BlabinLoginActivity extends AppCompatActivity {
             }
         });
 
+
         // Login a User
         Button login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new OnClickListener() {
@@ -98,6 +105,8 @@ public class BlabinLoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
+
 
         // Font path
         String fontHobo = "fonts/Hobo Std Medium.ttf";
@@ -151,6 +160,9 @@ public class BlabinLoginActivity extends AppCompatActivity {
                             finish();
                         }
                         else {
+
+                            //newUser();
+                            //updateContact();
                             Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
                             startActivity(i);
 
@@ -162,12 +174,6 @@ public class BlabinLoginActivity extends AppCompatActivity {
                     }
                 });
 
-//        Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
-//        startActivity(i);
-//
-//        // close this activity
-//        finish();
-
     }
 
 
@@ -176,6 +182,8 @@ public class BlabinLoginActivity extends AppCompatActivity {
 
         String email = mUserNameView.getText().toString();
         String pw = mPasswordView.getText().toString();
+        String whale = null;
+
 
         mAuth.signInWithEmailAndPassword(email, pw)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -197,7 +205,9 @@ public class BlabinLoginActivity extends AppCompatActivity {
 
                         }
                         else{
-                            Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
+
+
+                            Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
                             startActivity(i);
                             finish();
                         }
@@ -206,48 +216,12 @@ public class BlabinLoginActivity extends AppCompatActivity {
                     }
                 });
 
-//        Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
-//        startActivity(i);
-//        finish();
+
 
 
     }
 
-    private void newUser(){
 
-        String userName = mUserNameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        newUsers = myBlabbinDBManager.createUser(userName, password);
-
-        Intent i = new Intent(BlabinLoginActivity.this, BlabbinChooseWhaleActivity.class);
-        startActivity(i);
-
-        // close this activity
-        finish();
-
-
-        //Cursor userInfo = myBlabbinDBManager.getUser(userName);
-
-        //Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
-
-        //Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
-
-    }
-
-    private void userLogin(){
-        String userName = mUserNameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        Cursor userInfo = myBlabbinDBManager.validateCredentials(userName, password);
-
-        Log.d("Work for daddy",DatabaseUtils.dumpCursorToString(userInfo));
-
-        if(userInfo.getCount() != 0){
-            Intent i = new Intent(BlabinLoginActivity.this, WhaleListScreen.class);
-            startActivity(i);
-            finish();
-        }
-    }
 
 
 }

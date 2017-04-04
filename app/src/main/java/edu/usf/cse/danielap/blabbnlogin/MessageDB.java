@@ -1,5 +1,9 @@
 package edu.usf.cse.danielap.blabbnlogin;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import cse.usf.edu.android.db.BlabbinDBManager;
+
 import static android.R.attr.value;
 
 
@@ -34,20 +40,26 @@ import static android.R.attr.value;
 public class MessageDB extends AppCompatActivity {
 
     private FirebaseListAdapter<ChatMessage> adapter;
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference messageRef = database.getReference("message");
-    //String value="TEST";
-
+    //BlabbinDBManager myBlabbinDBManager;
+    //Cursor WhaleChosen = myBlabbinDBManager.getUser();
+    //String result = null;
+    //String test2;
+    String whaleIcon;
     String whaleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Cursor userWhale = myBlabbinDBManager.getUser();
+        //Log.d("!!Work for daddy!!", DatabaseUtils.dumpCursorToString(userWhale));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages_main_act);
 
-        Intent i = getIntent();
-        whaleName = i.getExtras().getString("Whale Name");
+        //displayChatMessages();
+        Intent intent = getIntent();
+        whaleIcon = intent.getExtras().getString("User Whale");
+        whaleName = intent.getExtras().getString("Whale Name");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -58,18 +70,13 @@ public class MessageDB extends AppCompatActivity {
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 EditText input = (EditText)findViewById(R.id.input);
-
+                String test = input.getText().toString();
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child(whaleName).push().setValue(new ChatMessage(input.getText().toString()));
+                mDatabase.child(whaleName).push().setValue(new ChatMessage(test, whaleIcon));
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
-
                 // Clear the input
                 input.setText("");
-
-
             }
-
-
         });
 
     displayChatMessages(whaleName);
@@ -88,10 +95,58 @@ public class MessageDB extends AppCompatActivity {
                 TextView messageUser = (TextView)v.findViewById(R.id.message_user);
                 TextView messageTime = (TextView)v.findViewById(R.id.message_time);
 
-                //ImageView image1 = (ImageView)findViewById(R.id.image1);
-                //image1.setImageResource(R.drawable.ic_arrow_forward_black);
-                //Set whale image
-                messageUser.setBackgroundResource(R.drawable.whale01);
+                String tesVal = model.getMessageUser();
+                if (tesVal.equals("whale01")){
+                    messageUser.setBackgroundResource(R.drawable.whale01);
+                }
+                else if (tesVal.equals("whale02")){
+                    messageUser.setBackgroundResource(R.drawable.whale02);
+                }
+                else if (tesVal.equals("whale03")){
+                    messageUser.setBackgroundResource(R.drawable.whale03);
+                }
+                else if (tesVal.equals("whale04")){
+                    messageUser.setBackgroundResource(R.drawable.whale04);
+                }
+                else if (tesVal.equals("whale05")){
+                    messageUser.setBackgroundResource(R.drawable.whale05);
+                }
+                else if (tesVal.equals("whale06")){
+                    messageUser.setBackgroundResource(R.drawable.whale06);
+                }
+                else if (tesVal.equals("whale07")){
+                    messageUser.setBackgroundResource(R.drawable.whale07);
+                }
+                else if (tesVal.equals("whale08")){
+                    messageUser.setBackgroundResource(R.drawable.whale08);
+                }
+                else if (tesVal.equals("whale09")){
+                    messageUser.setBackgroundResource(R.drawable.whale09);
+                }
+                else if (tesVal.equals("whale10")){
+                    messageUser.setBackgroundResource(R.drawable.whale10);
+                }
+                else if (tesVal.equals("whale11")){
+                    messageUser.setBackgroundResource(R.drawable.whale11);
+                }
+                else if (tesVal.equals("whale12")){
+                    messageUser.setBackgroundResource(R.drawable.whale12);
+                }
+                else if (tesVal.equals("whale13")){
+                    messageUser.setBackgroundResource(R.drawable.whale13);
+                }
+                else if (tesVal.equals("whale14")){
+                    messageUser.setBackgroundResource(R.drawable.whale14);
+                }
+                else if (tesVal.equals("whale15")){
+                    messageUser.setBackgroundResource(R.drawable.whale15);
+                }
+                else if (tesVal.equals("whale16")){
+                    messageUser.setBackgroundResource(R.drawable.whale16);
+                }
+                else {
+                    messageUser.setBackgroundResource(R.drawable.bluewhale);
+                }
 
                 // Set their text
                 messageText.setText(model.getMessageText());
@@ -100,11 +155,8 @@ public class MessageDB extends AppCompatActivity {
             }
         };
 
-
         listOfMessages.setAdapter(adapter);
-
     }
-
 
 }
 

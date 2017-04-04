@@ -20,7 +20,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:id="@+id/message_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"

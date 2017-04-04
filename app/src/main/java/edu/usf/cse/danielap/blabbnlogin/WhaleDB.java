@@ -20,19 +20,23 @@ public class WhaleDB extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.messages_main_act);
 
         Intent i = getIntent();
         String whaleName = i.getExtras().getString("Whale Name");
         String whaleLoc = i.getExtras().getString("Whale Location");
+        String whaleIcon = i.getExtras().getString("User Whale");
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(whaleName).push().setValue(new Whale());
         mDatabase.child(whaleName).setValue(whaleLoc);
         Log.d("ADebugTag", "whale name is" + whaleName);
 
-        Intent back = new Intent(WhaleDB.this, WhaleListScreen.class);
-        startActivity(back);
-
+        Intent messageIntent = new Intent(WhaleDB.this, MessageDB.class);
+        messageIntent.putExtra("User Whale", whaleIcon);
+        messageIntent.putExtra("Whale Name", whaleName);
+        messageIntent.putExtra("Whale Location", whaleLoc);
+        startActivity(messageIntent);
     }
 
 //    private void displayChatMessages() {
