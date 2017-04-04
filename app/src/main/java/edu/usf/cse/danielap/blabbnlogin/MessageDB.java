@@ -31,8 +31,6 @@ import static android.R.attr.value;
  * Created by danielaperez on 3/26/17.
  */
 
-import edu.usf.cse.danielap.blabbnlogin.WhaleListScreen;
-
 public class MessageDB extends AppCompatActivity {
 
     private FirebaseListAdapter<ChatMessage> adapter;
@@ -67,7 +65,7 @@ public class MessageDB extends AppCompatActivity {
                 EditText input = (EditText)findViewById(R.id.input);
 
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child("messages_whale01").push().setValue(new ChatMessage(input.getText().toString()));
+                mDatabase.child(whaleName).push().setValue(new ChatMessage(input.getText().toString()));
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
 
                 // Clear the input
@@ -79,15 +77,15 @@ public class MessageDB extends AppCompatActivity {
 
         });
 
-    displayChatMessages();
+    displayChatMessages(whaleName);
     }
 
-    private void displayChatMessages() {
+    private void displayChatMessages(String whaleName) {
 
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference().child("messages_whale01")) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference().child(whaleName)) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml

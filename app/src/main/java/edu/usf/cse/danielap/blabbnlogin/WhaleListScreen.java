@@ -112,7 +112,9 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         refreshLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("AAA", myCurrentLocation.toString());
                 createLocationRequest();
+                Log.d("BBB", myCurrentLocation.toString());
             }
         });
 
@@ -128,13 +130,20 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         myButton.setBackgroundColor(Color.WHITE);
         myButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(WhaleListScreen.this, MessageDB.class);
-                    intent.putExtra("Whale Name", inputWhaleName.getText().toString());
-                    startActivity(intent);
+                Intent intent = new Intent(WhaleListScreen.this, WhaleDB.class);
+                if(checkLocationPermission()) {
+                    myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                }
+                Double lat = myCurrentLocation.getLatitude();
+                Double lon = myCurrentLocation.getLongitude();
+                String currLoc = lat.toString() + "," + lon.toString();
+
+                intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                intent.putExtra("Whale Location", currLoc);
+                startActivity(intent);
                 //Retrieve whale name like this....
                 //Intent intent = getIntent();
                 //String whaleName = intent.getExtras().getString("Whale Name");
-
                 finish();
             }
         });
@@ -142,8 +151,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 40, 0, 0);
-
-
         ll.addView(myButton, lp);
 
     }
@@ -290,7 +297,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        Log.d("POST-LOCATION", "Post Location: " + myCurrentLocation);
+        Log.d("PRE-LOCATION", "Post Location: " + myCurrentLocation);
     }
 
 
