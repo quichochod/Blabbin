@@ -9,10 +9,11 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * Created by quich on 4/2/2017.
- */
+import static java.lang.Thread.sleep;
 
+/**
+ * Deals with creation of new Whale
+ */
 
 public class WhaleDB extends AppCompatActivity {
 
@@ -29,9 +30,8 @@ public class WhaleDB extends AppCompatActivity {
         mDatabase.child(whaleName).setValue(whaleLoc);
         Log.d("ADebugTag", "whale name is" + whaleName);
 
-        Intent intent = new Intent(WhaleDB.this, MessageDB.class);
-        intent.putExtra("Whale Name", whaleName);
-        startActivity(intent);
+        Intent back = new Intent(WhaleDB.this, WhaleListScreen.class);
+        startActivity(back);
 
     }
 

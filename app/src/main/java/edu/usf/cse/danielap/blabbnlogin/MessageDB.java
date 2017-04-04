@@ -49,11 +49,6 @@ public class MessageDB extends AppCompatActivity {
         Intent i = getIntent();
         whaleName = i.getExtras().getString("Whale Name");
 
-
-
-        //displayChatMessages();
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
