@@ -61,19 +61,6 @@ public class BlabinLoginActivity extends AppCompatActivity {
         mUserNameView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        // Create and open database
-        //myBlabbinDBManager = new BlabbinDBManager(this);
-        //myBlabbinDBManager.open();
-
-       /* // Create a User and save in SQLite////////////////////////////////////////
-        Button createUserSQL = (Button) findViewById(R.id.create_user_button);
-        createUserSQL.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newUser();
-            }
-        });*/
-
 
         //Firebase authentication Code
 
@@ -109,16 +96,15 @@ public class BlabinLoginActivity extends AppCompatActivity {
             }
         });
 
-        // Create a User
-        Button signinUser = (Button) findViewById(R.id.login);
-        signinUser.setOnClickListener(new OnClickListener() {
+
+        // Login a User
+        Button login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
-
-
 
 
 
