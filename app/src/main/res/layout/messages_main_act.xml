@@ -13,6 +13,7 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_chevron_right_black_24dp"
         android:clickable="true"
         android:id="@+id/fab"
         android:tint="@android:color/white"
@@ -30,7 +31,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Input"
+            android:hint="Send a blab..."
             android:id="@+id/input"
             />
     </android.support.design.widget.TextInputLayout>

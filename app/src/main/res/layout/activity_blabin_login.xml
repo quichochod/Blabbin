@@ -109,8 +109,6 @@
                     android:textSize="12dp"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
-
-
                     android:elevation="0dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"

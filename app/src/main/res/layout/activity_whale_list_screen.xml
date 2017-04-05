@@ -9,6 +9,23 @@
     android:visibility="visible"
     android:weightSum="1">
 
+    <Button
+        android:id="@+id/signoutbut2"
+        android:background="@drawable/logout_rounded"
+        android:layout_height="30dp"
+        android:text="Sign Out"
+        android:textSize="12dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:elevation="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp" />
+
     <!--Add whale text-->
     <TextView
         android:id="@+id/text_add_whale"
@@ -65,14 +82,7 @@
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/refreshLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Refresh"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -88,4 +98,19 @@
 
 
     </ScrollView>
+
+    <Button
+
+        android:id="@+id/refreshLocation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/ic_sync_black_24dp"
+        android:textSize="8dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:layout_above="@+id/text_add_whale"
+        android:layout_alignLeft="@+id/buttonAddWhale"
+        android:layout_alignStart="@+id/buttonAddWhale"
+        android:layout_marginBottom="12dp" />
 </RelativeLayout>
