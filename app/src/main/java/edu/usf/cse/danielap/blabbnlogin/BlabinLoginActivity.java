@@ -76,6 +76,7 @@ public class BlabinLoginActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         //Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath2);
 
+
         // Applying font
         txtCreateUser.setTypeface(tf);
         txtLogin.setTypeface(tf);
@@ -115,15 +116,14 @@ public class BlabinLoginActivity extends AppCompatActivity {
         });
 
         // Login a User
-        Button signinUser = (Button) findViewById(R.id.login);
-        signinUser.setOnClickListener(new OnClickListener() {
+        Button login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
-
-
 
 
 
