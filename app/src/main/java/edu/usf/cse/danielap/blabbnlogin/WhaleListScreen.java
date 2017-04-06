@@ -56,6 +56,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     String whaleIcon;
     String test;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,7 +183,34 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                     intent.putExtra("Whale Name", var);
                     String testing = var;
                     Log.d("afnlaefn", var);
-                    intent.putExtra("Whale Location", currLoc);
+
+                    final List<String> existingWhaleName = new ArrayList<String>();
+                    final List<String> existingWhaleLoc = new ArrayList<String>();
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(DataSnapshot snapshot) {
+                         for (DataSnapshot child : snapshot.getChildren()) {
+                             existingWhaleName.add(child.getKey());
+                             existingWhaleLoc.add(child.child("Location").getValue().toString());
+                         }
+                     }
+
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+                    });
+
+                    if(existingWhaleName.contains(var)){
+                        int index = existingWhaleName.indexOf(var);
+                        intent.putExtra("Whale Location", existingWhaleLoc.indexOf(index));
+                    }
+                    else{
+                        intent.putExtra("Whale Location", currLoc);
+                    }
+                    
                     intent.putExtra("User Whale", whaleIcon);
                     //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
                     inputWhaleName.setText("");
