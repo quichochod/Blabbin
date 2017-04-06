@@ -211,7 +211,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     private Location mLastLocation;
     Location myCurrentLocation;
     LocationRequest mLocationRequest;
-    static float maxWhaleRange = 3;  // Approx meters in a mile
+    static float maxWhaleRange = 1000;  // Approx meters in a mile
 
     private boolean checkGooglePlayServices() {
         int checkGooglePlayServices = GooglePlayServicesUtil
