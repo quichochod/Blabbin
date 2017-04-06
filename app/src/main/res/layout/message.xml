@@ -27,5 +27,6 @@
         android:layout_width="250dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/message_user"
-        android:layout_toEndOf="@+id/message_user" />
+        android:layout_toEndOf="@+id/message_user"
+        android:paddingLeft="5dp"/>
 </RelativeLayout>

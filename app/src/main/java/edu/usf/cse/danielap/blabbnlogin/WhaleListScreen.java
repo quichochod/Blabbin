@@ -31,6 +31,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,6 +57,8 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     Button refreshLocation;
     String whaleIcon;
     String test;
+    private FirebaseAuth mAuth;
+    Button signOut2;
 
 
     @Override
@@ -65,6 +69,21 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
          //test = BlabbinChooseWhaleActivity.getWhaleName();
         //Log.d("HEY IT WORKED",test);
         //Retrieve whale name like this....
+
+        signOut2 = (Button) findViewById(R.id.signoutbut2);
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        signOut2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                Intent out = new Intent(WhaleListScreen.this, BlabinLoginActivity.class);
+                startActivity(out);
+                finish();
+
+            }
+        });
         Intent intent = getIntent();
         whaleIcon = intent.getExtras().getString("User Whale");
 

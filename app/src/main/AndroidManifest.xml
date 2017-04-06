@@ -45,11 +45,11 @@
 
 
         <activity
-            android:name=".BlabbinChooseWhaleActivity">
+            android:name=".BlabbinChooseWhaleActivity" android:noHistory="true">
         </activity>
 
         <activity
-            android:name=".WhaleListScreen">
+            android:name=".WhaleListScreen" android:noHistory="true">
         </activity>
         <activity
             android:name=".BlabinLoginActivity">

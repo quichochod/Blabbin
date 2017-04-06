@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,8 +62,26 @@ public class BlabinLoginActivity extends AppCompatActivity {
         mUserNameView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
+        // Font path
+        String fontPath = "fonts/Hobo Std Medium.ttf";
+        //String fontPath2 = "fonts/HelveticaNeue.ttf";
 
-        //Firebase authentication Code
+        // text view label
+        Button txtCreateUser = (Button) findViewById(R.id.create_user_button);
+        Button txtLogin = (Button) findViewById(R.id.login);
+        TextView txtemail = (TextView) findViewById(R.id.email);
+        TextView txtpass = (TextView) findViewById(R.id.password);
+
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        //Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath2);
+
+
+        // Applying font
+        txtCreateUser.setTypeface(tf);
+        txtLogin.setTypeface(tf);
+        //txtpass.setTypeface(tf2);
+        //txtemail.setTypeface(tf2);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -96,10 +115,10 @@ public class BlabinLoginActivity extends AppCompatActivity {
             }
         });
 
-
         // Login a User
         Button login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 signIn();

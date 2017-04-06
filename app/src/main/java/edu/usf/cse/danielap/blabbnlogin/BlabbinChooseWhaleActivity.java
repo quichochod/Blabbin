@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -12,7 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import cse.usf.edu.android.db.BlabbinDBHelper;
 import cse.usf.edu.android.db.BlabbinDBManager;
@@ -30,8 +35,9 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-
+    private FirebaseAuth mAuth;
     long newWhale;
+    Button signOut;
     //BlabbinDBManager myBlabbinDBManager;
     //BlabbinDBHelper exDB = BlabbinDBHelper.getInstance(this);
    // final Context context = this;
@@ -50,12 +56,38 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blabbin_choosewhale);
 
-        //Toast.makeText(getApplicationContext(),BlabbinDBHelper.getInstance(context).getString(), Toast.LENGTH_LONG).show();
 
-        // Create and open database
-        //myBlabbinDBManager = new BlabbinDBManager(this);
-        //myBlabbinDBManager.open();
-        //BlabbinDBHelper exDB = BlabbinDBHelper.getInstance(this);
+        signOut = (Button) findViewById(R.id.signoutbut);
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                Intent out = new Intent(BlabbinChooseWhaleActivity.this, BlabinLoginActivity.class);
+                startActivity(out);
+                finish();
+
+            }
+        });
+
+        // Font path
+        String fontPath = "fonts/Hobo Std Medium.ttf";
+        //String fontPath2 = "fonts/HelveticaNeue.ttf";
+
+        // text view label
+        Button signoutButton = (Button) findViewById(R.id.signoutbut);
+
+
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        //Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath2);
+
+        // Applying font
+        //signoutButton.setTypeface(tf2);
+
+
         defineButtons();
     }
 
