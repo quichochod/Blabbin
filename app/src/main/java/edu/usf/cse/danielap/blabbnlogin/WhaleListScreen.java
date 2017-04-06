@@ -473,23 +473,22 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                     currWhaleList.add(0, whale_key);
                     Log.d("Key", "Key is " + whale_key);
 
-
                     if(isRefresh != null){
-                        LinearLayout layout = (LinearLayout)findViewById(R.id.whaleLayout);
-                        Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()) );
 
                         if (withinDistance(lat, lon)) {
                             // Display button here
                             Log.d("Available Whale", whale_key);
                             Log.d("Lat", lat.toString());
                             Log.d("Long", lon.toString());
-                            createNewButton(whale_key);
+//                            createNewButton(whale_key);
+                            LinearLayout layout = (LinearLayout)findViewById(R.id.whaleLayout);
+                            Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()) );
                             for (int i = 0; i < layout.getChildCount(); i++) {
                                 Button btn = (Button) layout.getChildAt(i);
                                 if(btn.getText().toString().equals(whale_key)){
                                     Log.d("Match", whale_key);
                                     Log.d("BUTTON", btn.getText().toString());
-                                    createNewButton(whale_key);
+//                                    createNewButton(whale_key);
                                 }
                                 else{
                                     createNewButton(whale_key);
@@ -519,7 +518,66 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String whale_key = dataSnapshot.getKey();
+                Log.d("FIRST KEY", whale_key);
+                Log.d("FIRST KEY", dataSnapshot.child("Location").getValue().toString());
+                String temp = dataSnapshot.child("Location").getValue().toString();
+                Log.d("FIRST KEY", temp);
+                String whale_loc[] = temp.split(",");
+                String valid_length[] = temp.split("=");
 
+                if( valid_length.length > 2) {
+                    Log.d("SKIP", "Not a whale name");
+                }
+                else {
+                    Log.d("VVAALLUUEE", dataSnapshot.getValue().toString());
+                    Double lat = Double.parseDouble(whale_loc[0]);
+                    Double lon = Double.parseDouble(whale_loc[1]);
+
+                    currWhaleList.add(0, whale_key);
+                    Log.d("Key", "Key is " + whale_key);
+
+                    if(isRefresh != null){
+
+                        if (withinDistance(lat, lon)) {
+                            // Display button here
+                            Log.d("Available Whale", whale_key);
+                            Log.d("Lat", lat.toString());
+                            Log.d("Long", lon.toString());
+//                            createNewButton(whale_key);
+                            LinearLayout layout = (LinearLayout)findViewById(R.id.whaleLayout);
+                            Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()) );
+                            for (int i = 0; i < layout.getChildCount(); i++) {
+                                Button btn = (Button) layout.getChildAt(i);
+                                if(btn.getText().toString().equals(whale_key)){
+                                    Log.d("Match", whale_key);
+                                    Log.d("BUTTON", btn.getText().toString());
+//                                    createNewButton(whale_key);
+                                }
+                                else{
+                                    createNewButton(whale_key);
+                                    Log.d("BBBBBBBBBB", whale_key);
+                                    Log.d("BUTTON", btn.getText().toString());
+                                }
+                            }
+                        }
+                        else{
+                            deleteButton(whale_key);
+                        }
+
+                    }
+                    else {
+                        if (withinDistance(lat, lon)) {
+                            // Display button here
+                            Log.d("Available Whale", whale_key);
+                            Log.d("Lat", lat.toString());
+                            Log.d("Long", lon.toString());
+                            createNewButton(whale_key);
+                        } else {
+                            deleteButton(whale_key);
+                        }
+                    }
+                }
             }
 
             @Override
@@ -552,5 +610,4 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             return false;
         }
     }
-
 }
