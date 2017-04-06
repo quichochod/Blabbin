@@ -100,7 +100,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             @Override
             public void onClick(View view){
 
-                createNewButton();
+                createNewButton(null);
 
 
                 addWhale.setVisibility(view.VISIBLE);
@@ -120,48 +120,85 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                 Log.d("BBB", myCurrentLocation.toString());
             }
         });
-
-
     }
 
-
-    public void createNewButton()
+    public void createNewButton(String whale_name)
     {
-        Button myButton = new Button(this);
-        myButton.setText(inputWhaleName.getText().toString());
-        myButton.setTextSize(24);
-        myButton.setBackgroundColor(Color.WHITE);
+        if(whale_name == null) {
 
-        myButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            Button myButton = new Button(this);
+            myButton.setText(inputWhaleName.getText().toString());
+            myButton.setTextSize(24);
+            myButton.setBackgroundColor(Color.WHITE);
 
-                if(checkLocationPermission()) {
-                    myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    if (checkLocationPermission()) {
+                        myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    }
+                    Double lat = myCurrentLocation.getLatitude();
+                    Double lon = myCurrentLocation.getLongitude();
+                    String currLoc = lat.toString() + "," + lon.toString();
+
+                    Intent intent = new Intent(WhaleListScreen.this, WhaleDB.class);
+                    intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                    String testing = inputWhaleName.getText().toString();
+                    Log.d("afnlaefn", inputWhaleName.getText().toString());
+                    intent.putExtra("Whale Location", currLoc);
+                    intent.putExtra("User Whale", whaleIcon);
+                    //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                    inputWhaleName.setText("");
+                    startActivity(intent);
+                    //Retrieve whale name like this....
+                    //Intent intent = getIntent();
+                    //String whaleName = intent.getExtras().getString("Whale Name");
+                    finish();
                 }
-                Double lat = myCurrentLocation.getLatitude();
-                Double lon = myCurrentLocation.getLongitude();
-                String currLoc = lat.toString() + "," + lon.toString();
+            });
+            LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 40, 0, 0);
+            ll.addView(myButton, lp);
+        }
+        else{
+            final String var = whale_name;
+            Button myButton = new Button(this);
+            myButton.setText(var);
+            myButton.setTextSize(24);
+            myButton.setBackgroundColor(Color.WHITE);
 
-                Intent intent = new Intent(WhaleListScreen.this, WhaleDB.class);
-                intent.putExtra("Whale Name", inputWhaleName.getText().toString());
-                String testing = inputWhaleName.getText().toString();
-                Log.d("afnlaefn", inputWhaleName.getText().toString());
-                intent.putExtra("Whale Location", currLoc);
-                intent.putExtra("User Whale", whaleIcon);
-                //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
-                inputWhaleName.setText("");
-                startActivity(intent);
-                //Retrieve whale name like this....
-                //Intent intent = getIntent();
-                //String whaleName = intent.getExtras().getString("Whale Name");
-                finish();
-            }
-        });
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
 
-        LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, 40, 0, 0);
-        ll.addView(myButton, lp);
+                    if (checkLocationPermission()) {
+                        myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    }
+                    Double lat = myCurrentLocation.getLatitude();
+                    Double lon = myCurrentLocation.getLongitude();
+                    String currLoc = lat.toString() + "," + lon.toString();
+
+                    Intent intent = new Intent(WhaleListScreen.this, WhaleDB.class);
+                    intent.putExtra("Whale Name", var);
+                    String testing = var;
+                    Log.d("afnlaefn", var);
+                    intent.putExtra("Whale Location", currLoc);
+                    intent.putExtra("User Whale", whaleIcon);
+                    //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                    inputWhaleName.setText("");
+                    startActivity(intent);
+                    //Retrieve whale name like this....
+                    //Intent intent = getIntent();
+                    //String whaleName = intent.getExtras().getString("Whale Name");
+                    finish();
+                }
+            });
+            LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 40, 0, 0);
+            ll.addView(myButton, lp);
+        }
+
     }
 
 
@@ -174,7 +211,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     private Location mLastLocation;
     Location myCurrentLocation;
     LocationRequest mLocationRequest;
-    static float maxWhaleRange = 1610;  // Approx meters in a mile
+    static float maxWhaleRange = 3;  // Approx meters in a mile
 
     private boolean checkGooglePlayServices() {
         int checkGooglePlayServices = GooglePlayServicesUtil
@@ -234,7 +271,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             } else {
                 // No explanation needed, we can request the permission.
                 if ( ContextCompat.checkSelfPermission( this,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION ) !=
+                        android.Manifest.permission.ACCESS_FINE_LOCATION ) !=
                         PackageManager.PERMISSION_GRANTED ) {
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -267,7 +304,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     @Override
     public void onConnected(Bundle bundle) {
         if ( ContextCompat.checkSelfPermission( this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION ) ==
+                android.Manifest.permission.ACCESS_FINE_LOCATION ) ==
                 PackageManager.PERMISSION_GRANTED ) {
             Log.d("LOC-DEBUG-1", "Connected to GoogleApiClient " + mGoogleApiClient.isConnected());
             myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -297,11 +334,12 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     @Override
     public void onLocationChanged(Location location) {
         if ( ContextCompat.checkSelfPermission( this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION ) ==
+                android.Manifest.permission.ACCESS_FINE_LOCATION ) ==
                 PackageManager.PERMISSION_GRANTED )
             Log.d("PRE_LOCATION", "Pre Location: " + myCurrentLocation);
         myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.d("POST-LOCATION", "Post Location: " + myCurrentLocation);
+        searchWhaleList();
     }
 
     public void createLocationRequest(){
@@ -328,8 +366,11 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 //                String whale_name = (String) dataSnapshot.getValue();
                 String whale_key = dataSnapshot.getKey();
                 Log.d("FIRST KEY", whale_key);
-                String whale_loc[] = dataSnapshot.getValue().toString().split(",");
-                String valid_length[] = dataSnapshot.getValue().toString().split("=");
+                Log.d("FIRST KEY", dataSnapshot.child("Location").getValue().toString());
+                String temp = dataSnapshot.child("Location").getValue().toString();
+                Log.d("FIRST KEY", temp);
+                String whale_loc[] = temp.split(",");
+                String valid_length[] = temp.split("=");
 
                 if( valid_length.length > 2) {
                     Log.d("SKIP", "Not a whale name");
@@ -346,6 +387,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                         Log.d("Available Whale", whale_key);
                         Log.d("Lat", lat.toString());
                         Log.d("Long", lon.toString());
+                        createNewButton(whale_key);
                     }
                 }
             }
@@ -386,11 +428,4 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         }
     }
 
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        buildGoogleApiClient();
-//        searchWhaleList();
-//
-//    }
 }

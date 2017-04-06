@@ -21,15 +21,15 @@ public class WhaleDB extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.messages_main_act);
-
+        Log.d("tag", "start whale db");
         Intent i = getIntent();
         String whaleName = i.getExtras().getString("Whale Name");
         String whaleLoc = i.getExtras().getString("Whale Location");
         String whaleIcon = i.getExtras().getString("User Whale");
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(whaleName).push().setValue(new Whale());
-        mDatabase.child(whaleName).setValue(whaleLoc);
+        mDatabase.child(whaleName).child("Location").push().setValue(new Whale());
+        mDatabase.child(whaleName).child("Location").setValue(whaleLoc);
         Log.d("ADebugTag", "whale name is" + whaleName);
 
         Intent messageIntent = new Intent(WhaleDB.this, MessageDB.class);
@@ -38,36 +38,5 @@ public class WhaleDB extends AppCompatActivity {
         messageIntent.putExtra("Whale Location", whaleLoc);
         startActivity(messageIntent);
     }
-
-//    private void displayChatMessages() {
-//
-//        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
-//
-//        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-//                R.layout.message, FirebaseDatabase.getInstance().getReference().child("messages_whale01")) {
-//            @Override
-//            protected void populateView(View v, ChatMessage model, int position) {
-//                // Get references to the views of message.xml
-//                TextView messageText = (TextView)v.findViewById(R.id.message_text);
-//                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
-//                TextView messageTime = (TextView)v.findViewById(R.id.message_time);
-//
-//                //ImageView image1 = (ImageView)findViewById(R.id.image1);
-//                //image1.setImageResource(R.drawable.ic_arrow_forward_black);
-//                //Set whale image
-//                messageUser.setBackgroundResource(R.drawable.whale01);
-//
-//                // Set their text
-//                messageText.setText(model.getMessageText());
-//                // Format the date before showing it
-//                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getMessageTime()));
-//            }
-//        };
-//
-//
-//        listOfMessages.setAdapter(adapter);
-//
-//    }
-
 
 }

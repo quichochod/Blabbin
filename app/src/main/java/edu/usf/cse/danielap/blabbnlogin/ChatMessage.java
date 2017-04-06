@@ -18,7 +18,6 @@ public class ChatMessage {
 
         // Initialize to current time
         messageTime = new Date().getTime();
-        messageUser = "";
     }
 
     public ChatMessage(){

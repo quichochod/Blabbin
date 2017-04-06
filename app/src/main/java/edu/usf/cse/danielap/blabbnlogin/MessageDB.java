@@ -46,6 +46,7 @@ public class MessageDB extends AppCompatActivity {
     //String test2;
     String whaleIcon;
     String whaleName;
+    String whaleLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MessageDB extends AppCompatActivity {
         Intent intent = getIntent();
         whaleIcon = intent.getExtras().getString("User Whale");
         whaleName = intent.getExtras().getString("Whale Name");
+        whaleLoc = intent.getExtras().getString("Whale Location");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -72,7 +74,7 @@ public class MessageDB extends AppCompatActivity {
                 EditText input = (EditText)findViewById(R.id.input);
                 String test = input.getText().toString();
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child(whaleName).push().setValue(new ChatMessage(test, whaleIcon));
+                mDatabase.child(whaleName).child("Messages").push().setValue(new ChatMessage(test, whaleIcon));
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
                 // Clear the input
                 input.setText("");
@@ -87,7 +89,7 @@ public class MessageDB extends AppCompatActivity {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference().child(whaleName)) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference().child(whaleName).child("Messages")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
