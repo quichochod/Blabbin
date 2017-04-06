@@ -102,6 +102,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
 
         refreshLocation = (Button) findViewById(R.id.refreshLocation);
+
         addWhale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,18 +115,17 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             }
         });
 
-
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
-                createNewButton();
+                createNewButton(null);
 
 
                 addWhale.setVisibility(view.VISIBLE);
                 whaleName.setVisibility(view.VISIBLE);
 
-                inputWhaleName.setText("");
+//                inputWhaleName.setText("");
                 inputWhaleName.setVisibility(view.INVISIBLE);
                 submit.setVisibility(view.INVISIBLE);
             }
@@ -134,40 +134,116 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         refreshLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("AAA", myCurrentLocation.toString());
                 createLocationRequest();
+                Log.d("BBB", myCurrentLocation.toString());
             }
         });
-
-
     }
 
-
-    public void createNewButton()
+    public void createNewButton(String whale_name)
     {
-        Button myButton = new Button(this);
-        myButton.setText(inputWhaleName.getText().toString());
-        myButton.setTextSize(24);
-        myButton.setBackgroundColor(Color.WHITE);
-        myButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(WhaleListScreen.this, MessageDB.class);
-                intent.putExtra("User Whale", whaleIcon);
-                //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
-                startActivity(intent);
-                //Retrieve whale name like this....
-                //Intent intent = getIntent();
-                //String whaleName = intent.getExtras().getString("Whale Name");
+        if(whale_name == null) {
 
-               // finish();
-            }
-        });
+            Button myButton = new Button(this);
+            myButton.setText(inputWhaleName.getText().toString());
+            myButton.setTextSize(24);
+            myButton.setBackgroundColor(Color.WHITE);
 
-        LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, 40, 0, 0);
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
 
+                    if (checkLocationPermission()) {
+                        myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    }
+                    Double lat = myCurrentLocation.getLatitude();
+                    Double lon = myCurrentLocation.getLongitude();
+                    String currLoc = lat.toString() + "," + lon.toString();
 
-        ll.addView(myButton, lp);
+                    Intent intent = new Intent(WhaleListScreen.this, WhaleDB.class);
+                    intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                    String testing = inputWhaleName.getText().toString();
+                    Log.d("afnlaefn", inputWhaleName.getText().toString());
+                    intent.putExtra("Whale Location", currLoc);
+                    intent.putExtra("User Whale", whaleIcon);
+                    //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                    inputWhaleName.setText("");
+                    startActivity(intent);
+                    //Retrieve whale name like this....
+                    //Intent intent = getIntent();
+                    //String whaleName = intent.getExtras().getString("Whale Name");
+                    finish();
+                }
+            });
+            LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 40, 0, 0);
+            ll.addView(myButton, lp);
+        }
+        else{
+            final String var = whale_name;
+            Button myButton = new Button(this);
+            myButton.setText(var);
+            myButton.setTextSize(24);
+            myButton.setBackgroundColor(Color.WHITE);
+
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    if (checkLocationPermission()) {
+                        myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    }
+                    Double lat = myCurrentLocation.getLatitude();
+                    Double lon = myCurrentLocation.getLongitude();
+                    String currLoc = lat.toString() + "," + lon.toString();
+
+                    Intent intent = new Intent(WhaleListScreen.this, WhaleDB.class);
+                    intent.putExtra("Whale Name", var);
+                    String testing = var;
+                    Log.d("afnlaefn", var);
+
+                    final List<String> existingWhaleName = new ArrayList<String>();
+                    final List<String> existingWhaleLoc = new ArrayList<String>();
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(DataSnapshot snapshot) {
+                         for (DataSnapshot child : snapshot.getChildren()) {
+                             existingWhaleName.add(child.getKey());
+                             existingWhaleLoc.add(child.child("Location").getValue().toString());
+                         }
+                     }
+
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+                    });
+
+                    if(existingWhaleName.contains(var)){
+                        int index = existingWhaleName.indexOf(var);
+                        intent.putExtra("Whale Location", existingWhaleLoc.indexOf(index));
+                    }
+                    else{
+                        intent.putExtra("Whale Location", currLoc);
+                    }
+
+                    intent.putExtra("User Whale", whaleIcon);
+                    //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
+                    inputWhaleName.setText("");
+                    startActivity(intent);
+                    //Retrieve whale name like this....
+                    //Intent intent = getIntent();
+                    //String whaleName = intent.getExtras().getString("Whale Name");
+                    finish();
+                }
+            });
+            LinearLayout ll = (LinearLayout) findViewById(R.id.whaleLayout);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 40, 0, 0);
+            ll.addView(myButton, lp);
+        }
 
     }
 
@@ -181,7 +257,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     private Location mLastLocation;
     Location myCurrentLocation;
     LocationRequest mLocationRequest;
-    static float maxWhaleRange = 1610;  // Approx meters in a mile
+    static float maxWhaleRange = 1609;  // Approx meters in a mile
 
     private boolean checkGooglePlayServices() {
         int checkGooglePlayServices = GooglePlayServicesUtil
@@ -241,7 +317,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             } else {
                 // No explanation needed, we can request the permission.
                 if ( ContextCompat.checkSelfPermission( this,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION ) !=
+                        android.Manifest.permission.ACCESS_FINE_LOCATION ) !=
                         PackageManager.PERMISSION_GRANTED ) {
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -262,15 +338,19 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                 .addApi(LocationServices.API)
                 .build();
         Log.d("POST CLIENT BUILD", "myGoogleApiClient is :" + mGoogleApiClient.isConnected());
-        this.mGoogleApiClient.connect();
+        while(!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()){
+            this.mGoogleApiClient.connect();
+        }
         Log.d("POST CONNECT", "myGoogleApiClient is :" + mGoogleApiClient.isConnected());
-        createLocationRequest();
+        if(mGoogleApiClient.isConnected()){
+            createLocationRequest();
+        }
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         if ( ContextCompat.checkSelfPermission( this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION ) ==
+                android.Manifest.permission.ACCESS_FINE_LOCATION ) ==
                 PackageManager.PERMISSION_GRANTED ) {
             Log.d("LOC-DEBUG-1", "Connected to GoogleApiClient " + mGoogleApiClient.isConnected());
             myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -300,11 +380,12 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     @Override
     public void onLocationChanged(Location location) {
         if ( ContextCompat.checkSelfPermission( this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION ) ==
+                android.Manifest.permission.ACCESS_FINE_LOCATION ) ==
                 PackageManager.PERMISSION_GRANTED )
             Log.d("PRE_LOCATION", "Pre Location: " + myCurrentLocation);
         myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.d("POST-LOCATION", "Post Location: " + myCurrentLocation);
+        searchWhaleList();
     }
 
     public void createLocationRequest(){
@@ -313,7 +394,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        Log.d("POST-LOCATION", "Post Location: " + myCurrentLocation);
+        Log.d("PRE-LOCATION", "Post Location: " + myCurrentLocation);
     }
 
 
@@ -322,7 +403,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
      *******************************/
     DatabaseReference mDatabase;
 
-    public boolean searchWhaleList(){
+    public void searchWhaleList(){
         final List<String> currWhaleList = new ArrayList<String>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.addChildEventListener(new ChildEventListener() {
@@ -330,10 +411,31 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 //                String whale_name = (String) dataSnapshot.getValue();
                 String whale_key = dataSnapshot.getKey();
-                currWhaleList.add(0, whale_key);
-//                Log.d("Name", " Name is " + whale_name);
-                Log.d("Key", "Key is " + whale_key);
-                Log.d("DDEGJENG", "JBEAFKLJBAELJNFALEJNFLJENAF");
+                Log.d("FIRST KEY", whale_key);
+                Log.d("FIRST KEY", dataSnapshot.child("Location").getValue().toString());
+                String temp = dataSnapshot.child("Location").getValue().toString();
+                Log.d("FIRST KEY", temp);
+                String whale_loc[] = temp.split(",");
+                String valid_length[] = temp.split("=");
+
+                if( valid_length.length > 2) {
+                    Log.d("SKIP", "Not a whale name");
+                }
+                else {
+                    Log.d("VVAALLUUEE", dataSnapshot.getValue().toString());
+                    Double lat = Double.parseDouble(whale_loc[0]);
+                    Double lon = Double.parseDouble(whale_loc[1]);
+
+                    currWhaleList.add(0, whale_key);
+                    Log.d("Key", "Key is " + whale_key);
+                    if (withinDistance(lat, lon)) {
+                        // Display button here
+                        Log.d("Available Whale", whale_key);
+                        Log.d("Lat", lat.toString());
+                        Log.d("Long", lon.toString());
+                        createNewButton(whale_key);
+                    }
+                }
             }
 
             @Override
@@ -343,7 +445,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+//                currWhaleList.remove(dataSnapshot)
             }
 
             @Override
@@ -356,30 +458,14 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
             }
         });
-
-        // loop through whale list3
-        // assign x and y as a location in whaleLocation
-        // calculate distance from myCurrentLocation to whaleLocation
-        // If within range return true?? Or add to an array
-        // if not keep searching
-//        mDatabase.child("messages_whale01").push().setValue(new ChatMessage(input.getText().toString()));
-//
-//        float distance = whaleLocation.distanceTo(myCurrentLocation);
-//        if(distance <= maxWhaleRange){
-//            Log.d("IN RANGE: ", "Distance from whale: " + distance);
-//        }
-//        else{
-//            Log.d("OUT OF RANGE: ", "Distance from whale: " + distance);
-//        }
-
-        //Return list of whales
-        return true;
     }
 
-    public boolean withinDistance(Location whale_loc){
-
-        float distance = myCurrentLocation.distanceTo(whale_loc);
-        if(distance <= maxWhaleRange){
+    public boolean withinDistance(Double wLat, Double wLon){
+        Double myLat = myCurrentLocation.getLatitude();
+        Double myLon = myCurrentLocation.getLongitude();
+        float [] dist = new float[1];
+        Location.distanceBetween(wLat, wLon, myLat, myLon, dist);
+        if(dist[0] <= maxWhaleRange){
             return true;
         }
         else{
@@ -387,4 +473,5 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             return false;
         }
     }
+
 }

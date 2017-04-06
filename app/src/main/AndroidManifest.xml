@@ -63,6 +63,10 @@
             android:name=".MessageDB">
         </activity>
 
+        <activity
+            android:name=".WhaleDB">
+        </activity>
+
     </application>
 
 </manifest>

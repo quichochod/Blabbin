@@ -37,18 +37,16 @@ import static android.R.attr.value;
  * Created by danielaperez on 3/26/17.
  */
 
-import edu.usf.cse.danielap.blabbnlogin.WhaleListScreen;
-
 public class MessageDB extends AppCompatActivity {
 
     private FirebaseListAdapter<ChatMessage> adapter;
     //BlabbinDBManager myBlabbinDBManager;
-    //String whaleName;
     //Cursor WhaleChosen = myBlabbinDBManager.getUser();
     //String result = null;
     //String test2;
     String whaleIcon;
-
+    String whaleName;
+    String whaleLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +60,8 @@ public class MessageDB extends AppCompatActivity {
         //displayChatMessages();
         Intent intent = getIntent();
         whaleIcon = intent.getExtras().getString("User Whale");
-
-
-
+        whaleName = intent.getExtras().getString("Whale Name");
+        whaleLoc = intent.getExtras().getString("Whale Location");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -77,29 +74,22 @@ public class MessageDB extends AppCompatActivity {
                 EditText input = (EditText)findViewById(R.id.input);
                 String test = input.getText().toString();
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-                mDatabase.child("messages_whale01").push().setValue(new ChatMessage(test, whaleIcon));
-
+                mDatabase.child(whaleName).child("Messages").push().setValue(new ChatMessage(test, whaleIcon));
                 Log.d("ADebugTag", "Value:1 " + input.getText().toString());
-
                 // Clear the input
                 input.setText("");
-
-
             }
-
-
         });
 
-    displayChatMessages();
+    displayChatMessages(whaleName);
     }
 
-    private void displayChatMessages() {
+    private void displayChatMessages(String whaleName) {
 
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference().child("messages_whale01")) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference().child(whaleName).child("Messages")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
@@ -167,11 +157,8 @@ public class MessageDB extends AppCompatActivity {
             }
         };
 
-
         listOfMessages.setAdapter(adapter);
-
     }
-
 
 }
 
