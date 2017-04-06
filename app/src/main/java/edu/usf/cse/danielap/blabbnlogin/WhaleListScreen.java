@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -66,9 +67,13 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whale_list_screen);
 
-         //test = BlabbinChooseWhaleActivity.getWhaleName();
-        //Log.d("HEY IT WORKED",test);
-        //Retrieve whale name like this....
+        // Ask for permissions, build google api, and connect to play services
+        if (checkGooglePlayServices() && checkLocationPermission()) {
+            Log.d("check", "google play passed");
+            buildGoogleApiClient();
+
+            searchWhaleList(null);
+        }
 
         signOut2 = (Button) findViewById(R.id.signoutbut2);
 
@@ -86,21 +91,14 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         });
         Intent intent = getIntent();
         whaleIcon = intent.getExtras().getString("User Whale");
-
-
-        // Ask for permissions, build google api, and connect to play services
-        if (checkGooglePlayServices() && checkLocationPermission()) {
-            buildGoogleApiClient();
-            searchWhaleList();
-        }
+        String Status = intent.getExtras().getString("Status");
+        String isTrue = "True";
+        String isFalse = "False";
 
         whaleName = (TextView) findViewById(R.id.text_add_whale);
         addWhale = (ImageButton) findViewById(R.id.buttonAddWhale);
         inputWhaleName = (EditText) findViewById(R.id.NameWhale);
         submit = (Button) findViewById(R.id.SubmitWhaleName);
-
-        //initialWhale = (ImageButton) findViewById(R.id.buttonInitialWhale);
-
 
         refreshLocation = (Button) findViewById(R.id.refreshLocation);
 
@@ -122,7 +120,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
                 createNewButton(null);
 
-
                 addWhale.setVisibility(view.VISIBLE);
                 whaleName.setVisibility(view.VISIBLE);
 
@@ -137,9 +134,26 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             public void onClick(View view) {
                 Log.d("AAA", myCurrentLocation.toString());
                 createLocationRequest();
+                searchWhaleList("refresh");
                 Log.d("BBB", myCurrentLocation.toString());
             }
         });
+    }
+
+    public void deleteButton(String whale_name){
+        LinearLayout layout = (LinearLayout)findViewById(R.id.whaleLayout);
+        deleteHelper(layout, whale_name);
+    }
+
+    public void deleteHelper(LinearLayout layout, String whale_name){
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            Button btn = (Button) layout.getChildAt(i);
+                Log.d("getChildat", btn.getText().toString());
+                if(btn.getText().toString().equals(whale_name)) {
+                    btn.setVisibility(View.GONE);
+
+            }
+        }
     }
 
     public void createNewButton(String whale_name)
@@ -169,6 +183,8 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                     intent.putExtra("User Whale", whaleIcon);
                     //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
                     inputWhaleName.setText("");
+                    mGoogleApiClient.disconnect();
+
                     startActivity(intent);
                     //Retrieve whale name like this....
                     //Intent intent = getIntent();
@@ -233,6 +249,9 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                     intent.putExtra("User Whale", whaleIcon);
                     //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
                     inputWhaleName.setText("");
+
+                    mGoogleApiClient.disconnect();
+
                     startActivity(intent);
                     //Retrieve whale name like this....
                     //Intent intent = getIntent();
@@ -246,6 +265,24 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             ll.addView(myButton, lp);
         }
 
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mGoogleApiClient.reconnect();
+//        mGoogleApiClient.reconnect();
+//        buildGoogleApiClient();
+//        if(checkGooglePlayServices()) {
+//            while (!mGoogleApiClient.isConnected()) {
+//                if (!mGoogleApiClient.isConnecting()) {
+//                    mGoogleApiClient.connect();
+//                }
+//            }
+//            if (mGoogleApiClient.isConnected()) {
+//                createLocationRequest();
+//            }
+//        }
     }
 
 
@@ -285,8 +322,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
             if (resultCode == RESULT_OK) {
                 // Make sure the app is not already connected or attempting to connect
-                if (!mGoogleApiClient.isConnecting() &&
-                        !mGoogleApiClient.isConnected()) {
+                if (!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()) {
                     mGoogleApiClient.connect();
                 }
             } else if (resultCode == RESULT_CANCELED) {
@@ -325,7 +361,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                             MY_PERMISSIONS_REQUEST_LOCATION);
                 }
                 return true;
-
             }
         }
         return true;
@@ -339,8 +374,13 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                 .addApi(LocationServices.API)
                 .build();
         Log.d("POST CLIENT BUILD", "myGoogleApiClient is :" + mGoogleApiClient.isConnected());
-        while(!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()){
+        if(!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()){
             this.mGoogleApiClient.connect();
+            try{
+                Thread.sleep(1500);
+            }catch(InterruptedException e){
+                System.out.println("got interrupted!");
+            }
         }
         Log.d("POST CONNECT", "myGoogleApiClient is :" + mGoogleApiClient.isConnected());
         if(mGoogleApiClient.isConnected()){
@@ -386,7 +426,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             Log.d("PRE_LOCATION", "Pre Location: " + myCurrentLocation);
         myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.d("POST-LOCATION", "Post Location: " + myCurrentLocation);
-        searchWhaleList();
+        searchWhaleList("refresh");
     }
 
     public void createLocationRequest(){
@@ -404,9 +444,12 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
      *******************************/
     DatabaseReference mDatabase;
 
-    public void searchWhaleList(){
+    public void searchWhaleList(String refresh){
         final List<String> currWhaleList = new ArrayList<String>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        final String isRefresh = refresh;
+
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -429,12 +472,47 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
                     currWhaleList.add(0, whale_key);
                     Log.d("Key", "Key is " + whale_key);
-                    if (withinDistance(lat, lon)) {
-                        // Display button here
-                        Log.d("Available Whale", whale_key);
-                        Log.d("Lat", lat.toString());
-                        Log.d("Long", lon.toString());
-                        createNewButton(whale_key);
+
+
+                    if(isRefresh != null){
+                        LinearLayout layout = (LinearLayout)findViewById(R.id.whaleLayout);
+                        Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()) );
+
+                        if (withinDistance(lat, lon)) {
+                            // Display button here
+                            Log.d("Available Whale", whale_key);
+                            Log.d("Lat", lat.toString());
+                            Log.d("Long", lon.toString());
+                            createNewButton(whale_key);
+                            for (int i = 0; i < layout.getChildCount(); i++) {
+                                Button btn = (Button) layout.getChildAt(i);
+                                if(btn.getText().toString().equals(whale_key)){
+                                    Log.d("Match", whale_key);
+                                    Log.d("BUTTON", btn.getText().toString());
+                                    createNewButton(whale_key);
+                                }
+                                else{
+                                    createNewButton(whale_key);
+                                    Log.d("BBBBBBBBBB", whale_key);
+                                    Log.d("BUTTON", btn.getText().toString());
+                                }
+                            }
+                        }
+                        else{
+                            deleteButton(whale_key);
+                        }
+
+                    }
+                    else {
+                        if (withinDistance(lat, lon)) {
+                            // Display button here
+                            Log.d("Available Whale", whale_key);
+                            Log.d("Lat", lat.toString());
+                            Log.d("Long", lon.toString());
+                            createNewButton(whale_key);
+                        } else {
+                            deleteButton(whale_key);
+                        }
                     }
                 }
             }

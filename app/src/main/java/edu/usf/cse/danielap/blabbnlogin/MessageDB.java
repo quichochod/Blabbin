@@ -160,6 +160,19 @@ public class MessageDB extends AppCompatActivity {
         listOfMessages.setAdapter(adapter);
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent backIntent = new Intent(this, WhaleListScreen.class);
+        backIntent.putExtra("User Whale", whaleIcon);
+        backIntent.putExtra("Status", "True");
+        startActivity(backIntent);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+    }
 }
 
 

@@ -216,6 +216,7 @@ public class BlabbinChooseWhaleActivity extends ActionBarActivity {
         setWhaleName(whaleName);
         Intent i = new Intent(BlabbinChooseWhaleActivity.this, WhaleListScreen.class);
         i.putExtra("User Whale", whaleName);
+        i.putExtra("Status", "False");
         startActivity(i);
 
 

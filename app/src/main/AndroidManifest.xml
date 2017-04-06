@@ -19,6 +19,10 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCoe2sz7vMtrs9aS4rw8FouLAhD5obmnJg"/>
+
 
     <application
         android:allowBackup="true"
