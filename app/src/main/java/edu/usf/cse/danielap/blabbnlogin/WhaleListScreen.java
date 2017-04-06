@@ -210,7 +210,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                     else{
                         intent.putExtra("Whale Location", currLoc);
                     }
-                    
+
                     intent.putExtra("User Whale", whaleIcon);
                     //intent.putExtra("Whale Name", inputWhaleName.getText().toString());
                     inputWhaleName.setText("");
@@ -239,7 +239,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     private Location mLastLocation;
     Location myCurrentLocation;
     LocationRequest mLocationRequest;
-    static float maxWhaleRange = 1000;  // Approx meters in a mile
+    static float maxWhaleRange = 1609;  // Approx meters in a mile
 
     private boolean checkGooglePlayServices() {
         int checkGooglePlayServices = GooglePlayServicesUtil
