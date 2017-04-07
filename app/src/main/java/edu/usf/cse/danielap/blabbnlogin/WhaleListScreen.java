@@ -485,15 +485,21 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                             Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()) );
                             for (int i = 0; i < layout.getChildCount(); i++) {
                                 Button btn = (Button) layout.getChildAt(i);
-                                if(btn.getText().toString().equals(whale_key)){
-                                    Log.d("Match", whale_key);
-                                    Log.d("BUTTON", btn.getText().toString());
-//                                    createNewButton(whale_key);
+                                if(currWhaleList.contains(whale_key)){
+                                    break;
                                 }
-                                else{
-                                    createNewButton(whale_key);
-                                    Log.d("BBBBBBBBBB", whale_key);
-                                    Log.d("BUTTON", btn.getText().toString());
+                                else {
+                                    if (btn.getText().toString().equals(whale_key)) {
+                                        Log.d("Match", whale_key);
+                                        Log.d("BUTTON1", btn.getText().toString());
+//                                    createNewButton(whale_key);
+                                        break;
+                                    } else {
+                                        createNewButton(whale_key);
+                                        Log.d("BBBBBBBBBB", whale_key);
+                                        Log.d("BUTTON2", btn.getText().toString());
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -549,15 +555,21 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                             Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()) );
                             for (int i = 0; i < layout.getChildCount(); i++) {
                                 Button btn = (Button) layout.getChildAt(i);
-                                if(btn.getText().toString().equals(whale_key)){
-                                    Log.d("Match", whale_key);
-                                    Log.d("BUTTON", btn.getText().toString());
-//                                    createNewButton(whale_key);
+                                if(currWhaleList.contains(whale_key)){
+                                    break;
                                 }
-                                else{
-                                    createNewButton(whale_key);
-                                    Log.d("BBBBBBBBBB", whale_key);
-                                    Log.d("BUTTON", btn.getText().toString());
+                                else {
+                                    if (btn.getText().toString().equals(whale_key)) {
+                                        Log.d("Match", whale_key);
+                                        Log.d("BUTTON3", btn.getText().toString());
+//                                    createNewButton(whale_key);
+                                        break;
+                                    } else {
+                                        createNewButton(whale_key);
+                                        Log.d("BBBBBBBBBB", whale_key);
+                                        Log.d("BUTTON4", btn.getText().toString());
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -595,6 +607,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
             }
         });
+        currWhaleList.clear();
     }
 
     public boolean withinDistance(Double wLat, Double wLon){
