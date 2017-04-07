@@ -67,12 +67,13 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whale_list_screen);
 
-        // Ask for permissions, build google api, and connect to play services
-        if (checkGooglePlayServices() && checkLocationPermission()) {
-            Log.d("check", "google play passed");
-            buildGoogleApiClient();
+//        checkGooglePlayServices();
 
-            searchWhaleList(null);
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        // Ask for permissions, build google api, and connect to play services
+        if (checkLocationPermission()) {
+            Log.d("check", "google play passed");
         }
 
         signOut2 = (Button) findViewById(R.id.signoutbut2);
@@ -267,23 +268,23 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        mGoogleApiClient.reconnect();
+//    @Override
+//    public void onResume(){
+//        super.onResume();
 //        mGoogleApiClient.reconnect();
-//        buildGoogleApiClient();
-//        if(checkGooglePlayServices()) {
-//            while (!mGoogleApiClient.isConnected()) {
-//                if (!mGoogleApiClient.isConnecting()) {
-//                    mGoogleApiClient.connect();
-//                }
-//            }
-//            if (mGoogleApiClient.isConnected()) {
-//                createLocationRequest();
-//            }
-//        }
-    }
+////        mGoogleApiClient.reconnect();
+////        buildGoogleApiClient();
+////        if(checkGooglePlayServices()) {
+////            while (!mGoogleApiClient.isConnected()) {
+////                if (!mGoogleApiClient.isConnecting()) {
+////                    mGoogleApiClient.connect();
+////                }
+////            }
+////            if (mGoogleApiClient.isConnected()) {
+////                createLocationRequest();
+////            }
+////        }
+//    }
 
 
     /**************************************************************
@@ -320,11 +321,11 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_RECOVER_PLAY_SERVICES) {
 
-            if (resultCode == RESULT_OK) {
+            if(resultCode == RESULT_OK) {
                 // Make sure the app is not already connected or attempting to connect
-                if (!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()) {
-                    mGoogleApiClient.connect();
-                }
+//                if (!mGoogleApiClient.isConnected() && !mGoogleApiClient.isConnecting()) {
+//                    mGoogleApiClient.connect();
+//                }
             } else if (resultCode == RESULT_CANCELED) {
 //                Toast.makeText(this, "Google Play Services must be installed.",
 //                        Toast.LENGTH_SHORT).show();
@@ -360,10 +361,31 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                             MY_PERMISSIONS_REQUEST_LOCATION);
                 }
-                return true;
+
             }
         }
-        return true;
+            return true;
+    }
+    static int start = 3;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                int grantResult = grantResults[i];
+
+                if (permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        buildGoogleApiClient();
+                        searchWhaleList(null);
+                    } else {
+
+                    }
+                }
+            }
+        }
     }
 
     protected synchronized void buildGoogleApiClient() {
