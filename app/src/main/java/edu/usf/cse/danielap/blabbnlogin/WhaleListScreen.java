@@ -316,6 +316,9 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         checkGooglePlayServices();
         Log.d("On Resume RUn", oncreateRun.toString());
 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.whaleLayout);
+        layout.removeAllViews();
+
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED){
@@ -325,10 +328,10 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         // Ask for permissions, build google api, and connect to play services
         if (locAllowed ) {
             if(!oncreateRun) {
-                new asyncConnection2().execute();
+//                new asyncConnection2().execute();
             }
             else{
-                new asyncConnection().execute();
+                new asyncConnection2().execute();
             }
 
         } else {
@@ -408,6 +411,7 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         if(mGoogleApiClient != null) {
             this.mGoogleApiClient.disconnect();
         }
+
     }
 
     /**************************************************************
@@ -544,7 +548,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
 
     }
 
-//    @Override
     public void onConnectionFailed (ConnectionResult connectionResult){
         Log.d("onConnectionFailed", "F1" + mGoogleApiClient.isConnected());
         if(mGoogleApiClient != null) {
@@ -570,9 +573,9 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             Log.d("LOC-DEBUG-1", "Connected to GoogleApiClient " + mGoogleApiClient.isConnected());
             myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if(myCurrentLocation != null){
-                editor.putLong("lastXLoc", Double.doubleToRawLongBits(myCurrentLocation.getLongitude()));
-                editor.putLong("lastYLoc", Double.doubleToRawLongBits(myCurrentLocation.getLatitude()));
-                editor.apply();
+                editor.putString("lastLat", Double.toString(myCurrentLocation.getLatitude()));
+                editor.putString("lastLon", Double.toString(myCurrentLocation.getLongitude()));
+                editor.commit();
             }
             Log.d("PERMISSIONS GRANTED", "Connected to GoogleApiClient " + mGoogleApiClient.isConnected());
             // Debug - At this point myCurrentLocation  is NULL
@@ -599,9 +602,9 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             Log.d("PRE_LOCATION", "Pre Location: " + myCurrentLocation);
         myCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if(myCurrentLocation != null){
-            editor.putString("lastXLoc", Double.toString(myCurrentLocation.getLongitude()));
-            editor.putString("lastYLoc", Double.toString(myCurrentLocation.getLatitude()));
-            editor.apply();
+            editor.putString("lastLat", Double.toString(myCurrentLocation.getLatitude()));
+            editor.putString("lastLon", Double.toString(myCurrentLocation.getLongitude()));
+            editor.commit();
         }
         Log.d("POST-LOCATION", "Post Location: " + myCurrentLocation);
         searchWhaleList("refresh");
@@ -644,6 +647,9 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
                     Log.d("SKIP", "Not a whale name");
                 } else {
                     Log.d("VVAALLUUEE", dataSnapshot.getValue().toString());
+                    SharedPreferences prefs =  getSharedPreferences(PREFS_NAME, 0);
+                    Log.d("kabhkwdbh", prefs.getString("lastXLoc", "FAIL"));
+                    Log.d("wegwegwrg", prefs.getString("lastYLoc", "FAIL"));
                     Double lat = Double.parseDouble(whale_loc[0]);
                     Double lon = Double.parseDouble(whale_loc[1]);
 
@@ -780,73 +786,6 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         currWhaleList.clear();
     }
 
-//    public void refreshWhaleList() {
-//        final List<String> currWhaleList = new ArrayList<String>();
-//        mDatabase = FirebaseDatabase.getInstance().getReference();
-//        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String whale_key = dataSnapshot.getKey();
-//                Log.d("PPPPPPPPPPPP", whale_key);
-//                Log.d("FIRST KEY", dataSnapshot.child("Location").getValue().toString());
-//                String temp = dataSnapshot.child("Location").getValue().toString();
-//                Log.d("FIRST KEY", temp);
-//                String whale_loc[] = temp.split(",");
-//                String valid_length[] = temp.split("=");
-//
-//                if (valid_length.length > 2) {
-//                    Log.d("SKIP", "Not a whale name");
-//                } else {
-//                    Log.d("VPPPPPPPPPPPP", dataSnapshot.getValue().toString());
-//                    Double lat = Double.parseDouble(whale_loc[0]);
-//                    Double lon = Double.parseDouble(whale_loc[1]);
-//
-//                    currWhaleList.add(0, whale_key);
-//                    Log.d("Key", "Key is " + whale_key);
-//
-//                        if (withinDistance(lat, lon)) {
-//                            // Display button here
-//                            Log.d("Available PPPPPPPPPPPP", whale_key);
-//                            Log.d("Lat", lat.toString());
-//                            Log.d("Long", lon.toString());
-////                            createNewButton(whale_key);
-//                            LinearLayout layout = (LinearLayout) findViewById(R.id.whaleLayout);
-//                            Log.d("CHILD COUNT", Integer.toString(layout.getChildCount()));
-//                            if(layout.getChildCount() == 0){
-//                                createNewButton(whale_key);
-//                            }
-//                            for (int i = 0; i < layout.getChildCount(); i++) {
-//                                Button btn = (Button) layout.getChildAt(i);
-//                                if (currWhaleList.contains(whale_key)) {
-//                                    break;
-//                                } else {
-//                                    if (btn.getText().toString().equals(whale_key)) {
-//                                        Log.d("Match", whale_key);
-//                                        Log.d("BUTTON1", btn.getText().toString());
-////                                    createNewButton(whale_key);
-//                                        break;
-//                                    } else {
-//                                        createNewButton(whale_key);
-//                                        Log.d("BBBBBBBBBB", whale_key);
-//                                        Log.d("BUTTON2", btn.getText().toString());
-//                                        break;
-//                                    }
-//                                }
-//                            }
-//                        } else {
-//                            deleteButton(whale_key);
-//                        }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Logic for failure is here...
-//            }
-//        });
-//
-//    }
-
     public boolean withinDistance(Double wLat, Double wLon) {
         Double myLat;
         Double myLon;
@@ -854,8 +793,8 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
         SharedPreferences prefs =  getSharedPreferences(PREFS_NAME, 0);
 
         if(myCurrentLocation == null){
-            myLat = Double.longBitsToDouble(prefs.getLong("lastxLoc", 100));
-            myLon = Double.longBitsToDouble(prefs.getLong("lastyLoc", 100));
+            myLat = Double.parseDouble(prefs.getString("lastLat","FAIL"));
+            myLon = Double.parseDouble(prefs.getString("lastLon", "FAIL"));
         }
         else{
             myLat = myCurrentLocation.getLatitude();
