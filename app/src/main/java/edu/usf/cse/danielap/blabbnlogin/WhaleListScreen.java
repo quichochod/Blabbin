@@ -397,9 +397,13 @@ public class WhaleListScreen extends AppCompatActivity  implements GoogleApiClie
             @Override
             public void onClick(View view) {
                 Log.d("AAA", myCurrentLocation.toString());
-                createLocationRequest();
-                searchWhaleList("refresh");
-//                refreshWhaleList();
+//                createLocationRequest();
+//                searchWhaleList("refresh");
+////                refreshWhaleList();
+
+                LinearLayout layout = (LinearLayout) findViewById(R.id.whaleLayout);
+                layout.removeAllViews();
+                new asyncConnection().execute();
                 Log.d("BBB", myCurrentLocation.toString());
             }
         });
